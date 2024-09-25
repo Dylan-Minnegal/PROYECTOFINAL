@@ -8,12 +8,14 @@ class ProductosRequest extends FormRequest
 {
     public function authorize()
     {
-        return true; 
+        return true;
     }
     public function rules()
     {
         return [
             'nombre' => 'required|string|max:255',
+            'imagen' => 'required|string', 
+            'color' => 'required|string|max:50',
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric|min:0',
             'tallas' => 'nullable|array',
@@ -27,6 +29,13 @@ class ProductosRequest extends FormRequest
             'nombre.required' => 'El nombre del producto es obligatorio.',
             'nombre.string' => 'El nombre debe ser una cadena de texto válida.',
             'nombre.max' => 'El nombre no puede tener más de :max caracteres.',
+
+            'color.required' => 'El color del producto es obligatorio.',
+            'color.string' => 'El color debe ser una cadena de texto válida.',
+            'color.max' => 'El color no puede tener más de 50 caracteres.',
+            
+            'imagen.required' => 'La imagen es obligatoria.',
+            'imagen.string' => 'La imagen debe ser una cadena de texto en formato Base64.',
 
             'descripcion.string' => 'La descripción debe ser una cadena de texto válida.',
 

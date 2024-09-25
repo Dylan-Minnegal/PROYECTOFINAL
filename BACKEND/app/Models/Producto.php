@@ -9,9 +9,8 @@ class Producto extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre', 'descripcion', 'precio'];
+    protected $fillable = ['nombre', 'descripcion', 'precio', 'color', 'imagen'];
 
-    // Relación muchos a muchos con tallas
     public function tallas()
     {
         return $this->belongsToMany(Talla::class, 'producto_tallas')->withPivot('cantidad')
