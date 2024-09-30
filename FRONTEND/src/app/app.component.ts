@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.sass'
 })
 export class AppComponent {
-  title = 'FRONTEND';
+  title = 'ProyectoFinal';
 }

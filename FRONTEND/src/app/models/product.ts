@@ -1,8 +1,13 @@
-// models/product.ts
 export interface Talla {
-    id: number;          // Identificador de la talla
-    cantidad: number;    // Cantidad disponible de la talla
+    id: number; // El identificador de la talla
+    talla: string; // El valor de la talla, por ejemplo: "S", "M", "L"
+    pivot: {
+        producto_id: number; // El ID del producto asociado a esta talla
+        talla_id: number; // El ID de la talla (posiblemente redundante)
+        cantidad: number; // La cantidad de esta talla disponible
+    };
 }
+
 
 export interface Producto {
     id: number;                // Identificador del producto

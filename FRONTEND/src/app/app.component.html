@@ -1,3 +1,12 @@
-<div>
-  <app-product-list></app-product-list>
+<app-header></app-header>
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-md-2">
+      <app-filters></app-filters> <!-- Componente de filtros a la izquierda -->
+    </div>
+    <div class="col-md-10">
+      <router-outlet></router-outlet> <!-- Aquí se cargará el contenido de las rutas -->
+    </div>
+  </div>
 </div>
+<app-footer></app-footer>

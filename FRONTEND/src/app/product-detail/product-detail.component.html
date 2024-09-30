@@ -1,0 +1,27 @@
+<div class="container mt-4">
+    <div *ngIf="producto" class="row">
+        <div class="col-md-6">
+            <img [src]="producto.imagen" class="product-image" alt="{{ producto.nombre }}">
+        </div>
+        <div class="col-md-6">
+            <h2>{{ producto.nombre }}</h2>
+            <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+            <p><strong>Precio:</strong> {{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</p>
+            <p><strong>Color:</strong> {{ producto.color }}</p>
+
+            <div *ngIf="producto.tallas.length > 0">
+                <label for="tallaSelect"><strong>Tallas disponibles:</strong></label>
+                <select id="tallaSelect" [(ngModel)]="selectedTalla" (change)="onTallaChange()">
+                    <option *ngFor="let talla of producto.tallas" [value]="talla.talla">{{ talla.talla }}</option>
+                </select>
+                <p class="mt-3" *ngIf="selectedCantidad !== null"><strong>Cantidad disponible:</strong> {{ selectedCantidad }}</p>
+            </div>
+
+            <button class="btn btn-primary p-1 mt-2">Agregar al carrito</button>
+        </div>
+    </div>
+
+    <div *ngIf="!producto" class="alert alert-warning">
+        Producto no encontrado.
+    </div>
+</div>
