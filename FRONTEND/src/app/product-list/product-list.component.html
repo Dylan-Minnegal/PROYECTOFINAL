@@ -1,21 +1,30 @@
-<div class="container mt-4">
-  <input type="text" [(ngModel)]="searchText" placeholder="Buscar productos..." class="form-control mb-3">
-  <h2>Lista de Productos</h2>
+<div class="container-fluid mt-4">
   <div class="row">
-  <div class="col-md-3" *ngFor="let producto of productos | filterProducts: searchText">
-    <div class="card mb-4">
-      <a [routerLink]="['/producto', producto.id]">
-        <img [src]="producto.imagen" class="card-img-top p-2" alt="{{ producto.nombre }}">
-      </a>
-      <div class="card-body">
-        <h5 class="card-title">
-          <a [routerLink]="['/producto', producto.id]">{{ producto.nombre }}</a>
-        </h5>
-        <p class="card-text">{{ producto.descripcion }}</p>
-        <p class="card-text"><strong>Precio:</strong> {{ producto.precio }} €</p>
-        <p class="card-text"><strong>Color:</strong> {{ producto.color }}</p>
+    <div class="col-md-2 filtros-column">
+      <app-filters (filterChange)="onFilterChange($event)"></app-filters>
+    </div>
+    
+    <div class="col-md-10">
+      <input type="text" [(ngModel)]="searchText" placeholder="Buscar productos..." class="form-control mb-3">
+      <h2 style="text-align: center;">Lista de Productos</h2>
+      
+      <div class="row">
+        <div class="col-md-3" *ngFor="let producto of filteredProducts | filterProducts: searchText">
+          <div class="card mb-4">
+            <a [routerLink]="['/producto', producto.id]">
+              <img [src]="producto.imagen" class="card-img-top p-2" alt="{{ producto.nombre }}">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">
+                <a [routerLink]="['/producto', producto.id]">{{ producto.nombre }}</a>
+              </h5>
+              <p class="card-text">{{ producto.descripcion }}</p>
+              <p class="card-text"><strong>Precio:</strong> {{ producto.precio }} €</p>
+              <p class="card-text"><strong>Color:</strong> {{ producto.color }}</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>

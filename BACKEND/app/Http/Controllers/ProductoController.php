@@ -26,7 +26,7 @@ class ProductoController extends Controller
 
     public function store(ProductosRequest $request)
     {
-        $producto = Producto::create($request->only('nombre', 'descripcion', 'precio', 'color', 'imagen'));
+        $producto = Producto::create($request->only('nombre', 'descripcion', 'precio', 'color', 'imagen', 'sexo', 'categoria'));
 
         foreach ($request->tallas as $talla) {
             $producto->tallas()->attach($talla['id'], ['cantidad' => $talla['cantidad']]);
@@ -45,7 +45,7 @@ class ProductoController extends Controller
             return response()->json(['error' => 'Producto no encontrado'], 404);
         }
 
-        $producto->update($request->only('nombre', 'descripcion', 'precio', 'color', 'imagen'));
+        $producto->update($request->only('nombre', 'descripcion', 'precio', 'color', 'imagen', 'sexo', 'categoria'));
 
         if ($request->has('tallas')) {
             foreach ($request->tallas as $talla) {
