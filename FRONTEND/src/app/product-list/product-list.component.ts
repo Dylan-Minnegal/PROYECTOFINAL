@@ -25,6 +25,7 @@ export class ProductListComponent implements OnInit {
   obtenerProductos(): void {
     this.productService.fetchProductos().subscribe(productos => {
       this.productos = productos;
+      console.log(this.productos)
     }, error => {
       console.error('Error al cargar los productos', error);
     });

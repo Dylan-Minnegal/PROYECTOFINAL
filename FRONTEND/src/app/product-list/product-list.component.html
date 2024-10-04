@@ -3,13 +3,16 @@
     <div class="col-md-2 filtros-column">
       <app-filters (filterChange)="onFilterChange($event)"></app-filters>
     </div>
-    
+
     <div class="col-md-10">
       <input type="text" [(ngModel)]="searchText" placeholder="Buscar productos..." class="form-control mb-3">
       <h2 style="text-align: center;">Lista de Productos</h2>
-      
+
       <div class="row">
         <div class="col-md-3" *ngFor="let producto of filteredProducts | filterProducts: searchText">
+          <div *ngIf="filteredProducts.length===0" class="">
+            No hay Productos disponible
+          </div>
           <div class="card mb-4">
             <a [routerLink]="['/producto', producto.id]">
               <img [src]="producto.imagen" class="card-img-top p-2" alt="{{ producto.nombre }}">
@@ -18,9 +21,8 @@
               <h5 class="card-title">
                 <a [routerLink]="['/producto', producto.id]">{{ producto.nombre }}</a>
               </h5>
-              <p class="card-text">{{ producto.descripcion }}</p>
+              <p class="card-text description-text">{{ producto.descripcion }}</p>
               <p class="card-text"><strong>Precio:</strong> {{ producto.precio }} €</p>
-              <p class="card-text"><strong>Color:</strong> {{ producto.color }}</p>
             </div>
           </div>
         </div>

@@ -11,7 +11,7 @@ export class ProductService {
 
   private productos: Producto[] = [];
 
-  private apiUrl = 'http://localhost:8000/api/productos';
+  private apiUrl = 'http://api.daw/api/productos';
 
   constructor(private http: HttpClient) { }
 
