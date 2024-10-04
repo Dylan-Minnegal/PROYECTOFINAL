@@ -9,11 +9,15 @@ class Producto extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nombre', 'descripcion', 'precio', 'color', 'imagen'];
+    protected $fillable = ['nombre', 'descripcion', 'precio', 'color', 'imagen', 'sexo', 'categoria'];
 
     public function tallas()
     {
         return $this->belongsToMany(Talla::class, 'producto_tallas')->withPivot('cantidad')
             ->withPivot('cantidad');
+    }
+    public function valoraciones()
+    {
+        return $this->hasMany(Valoracion::class, 'product_id');
     }
 }
