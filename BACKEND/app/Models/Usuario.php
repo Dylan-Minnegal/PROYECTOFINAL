@@ -3,26 +3,34 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;  // Importar Notifiable para notificaciones
 use Illuminate\Support\Facades\Hash;
-use Laravel\Sanctum\HasApiTokens;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class Usuario extends Model
+class Usuario extends Authenticatable implements JWTSubject
 {
-    use HasFactory, HasApiTokens;
+    use HasFactory, Notifiable;  
 
-    // Definir los campos que se pueden asignar en masa
-    protected $fillable = ['nombre', 'apellidos', 'email', 'direccion', 'contrasena', 'rol'];
+    protected $fillable = ['nombre', 'apellidos', 'email', 'direccion', 'password', 'rol'];
 
-    /**
-     * Encriptar la contraseña automáticamente al asignarla.
-     */
-    public function setContrasenaAttribute($value)
+    protected $hidden = ['password'];
+    
+    
+    public function getAuthPassword()
+{
+    return $this->password;
+}
+
+
+    // Métodos requeridos por la interfaz JWTSubject
+    public function getJWTIdentifier()
     {
-        $this->attributes['contrasena'] = Hash::make($value);
+        return $this->getKey();  // Usar la clave primaria del modelo como identificador del JWT
     }
-    public function setRolAttribute($value)
+
+    public function getJWTCustomClaims()
     {
-        $this->attributes['rol'] = $value ?? 'usuario';
+        return [];  // Retornar un array vacío si no hay claims personalizados
     }
 }

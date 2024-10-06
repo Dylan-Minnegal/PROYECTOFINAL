@@ -4,44 +4,47 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use Illuminate\Http\Request;
+use App\Http\Requests\UsuarioRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'contrasena' => 'required|string|min:8'
-        ]);
+{
+    $credentials = ['email' => $request->email, 'password' => $request->password];
 
-        $usuario = Usuario::where('email', $request->email)->first();
-
-        if (!$usuario || !Hash::check($request->contrasena, $usuario->contrasena)) {
-            return response()->json(['message' => 'Credenciales incorrectas.'], 401); // Error de autenticación
-        }
-
-        $token = $usuario->createToken('token-de-acceso')->plainTextToken;
-
-        return response()->json([
-            'message' => 'Inicio de sesión exitoso.',
-            'usuario' => $usuario,
-            'token' => $token
-        ], 200);
+    if (!$token = Auth::guard('api')->attempt($credentials)) {
+        return response()->json(['message' => 'Credenciales incorrectas.'], 401);
     }
+
+    return $this->respondWithToken($token);
+}
 
     
-    public function logout(Request $request)
-    {
-        $request->user()->currentAccessToken()->delete();
 
-        return response()->json(['message' => 'Sesión cerrada correctamente.'], 200);
+
+    // Método para cerrar sesión
+    public function logout()
+    {
+        Auth::logout();
+
+        return response()->json(['message' => 'Sesión cerrada correctamente.']);
     }
 
-   
-    public function perfil(Request $request)
+    public function perfil()
     {
-        return response()->json($request->user());
+        return response()->json(Auth::user());
+    }
+
+    protected function respondWithToken($token)
+    {
+        return response()->json([
+            'token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => Auth::factory()->getTTL() * 60,
+            'usuario' => Auth::user()
+        ]);
     }
 }

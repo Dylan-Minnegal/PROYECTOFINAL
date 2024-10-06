@@ -4,19 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Usuario;
 use App\Http\Requests\UsuarioRequest;
+use Illuminate\Support\Facades\Hash;
+
 
 class UsuarioController extends Controller
 {
     public function store(UsuarioRequest $request)
-    {
-        $data = $request->validated(); 
+{
+    $data = $request->validated();
 
-        $data['rol'] = 'usuario';
+    $data['password'] = Hash::make($data['password']); 
 
-        $usuario = Usuario::create($data);
+    $data['rol'] = 'usuario';
 
-        return response()->json($usuario, 201);
-    }
+    $usuario = Usuario::create($data);
+
+    return response()->json($usuario, 201);
+}
 
    
     public function update(UsuarioRequest $request, $id)

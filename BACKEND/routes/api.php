@@ -23,8 +23,5 @@ Route::put('/valoraciones/{id}', [ValoracionController::class, 'update']);
 Route::post('/usuarios', [UsuarioController::class, 'store']);
 Route::put('/usuarios', [UsuarioController::class, 'update']);
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('/login', [AuthController::class, 'login']);
-    Route::post('/logout', [AuthController::class, 'logout']);
-    // Otras rutas protegidas
-});
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout']);
