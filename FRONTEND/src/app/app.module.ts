@@ -9,7 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { FilterProductsPipe } from './filter-products.pipe';
 import { FiltersComponent } from './filters/filters.component';
-import { FooterComponent } from './footer/footer.component'; 
+import { FooterComponent } from './footer/footer.component';
+import { LoginComponent } from './login/login.component'; 
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { FooterComponent } from './footer/footer.component';
     HeaderComponent,
     FilterProductsPipe,
     FiltersComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

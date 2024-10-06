@@ -1,32 +1,70 @@
-<div class="filters">
+<div class="filters-container">
     <h3>Filtros</h3>
-    <div class="filters">
-        <h5>Categorías</h5>
-        <div *ngFor="let categoria of categorias">
+  
+    <!-- Tarjeta de Filtro de Categorías -->
+    <div class="card mb-3">
+      <div class="card-header btn-filter" data-bs-toggle="collapse" data-bs-target="#categoriasFilter" aria-expanded="false" aria-controls="categoriasFilter">
+        Categorías
+      </div>
+      <div id="categoriasFilter" class="collapse show">
+        <div class="card-body">
+          <div *ngFor="let categoria of categorias">
             <input type="checkbox" [value]="categoria" (change)="onCategoriaChange(categoria, $event)">
-            {{ categoria }}
+            <label class="checkbox-label">{{ categoria }}</label>
+          </div>
         </div>
-
-        <h5>Sexo</h5>
-        <div *ngFor="let sexo of sexos">
+      </div>
+    </div>
+  
+    <!-- Tarjeta de Filtro de Sexo -->
+    <div class="card mb-3">
+      <div class="card-header btn-filter" data-bs-toggle="collapse" data-bs-target="#sexoFilter" aria-expanded="false" aria-controls="sexoFilter">
+        Sexo
+      </div>
+      <div id="sexoFilter" class="collapse">
+        <div class="card-body">
+          <div *ngFor="let sexo of sexos">
             <input type="checkbox" [value]="sexo" (change)="onSexoChange(sexo, $event)">
-            {{ sexo }}
+            <label class="checkbox-label">{{ sexo }}</label>
+          </div>
         </div>
-        <h5>Tallas</h5>
-        <div *ngFor="let talla of tallas">
+      </div>
+    </div>
+  
+    <!-- Tarjeta de Filtro de Tallas -->
+    <div class="card mb-3">
+      <div class="card-header btn-filter" data-bs-toggle="collapse" data-bs-target="#tallasFilter" aria-expanded="false" aria-controls="tallasFilter">
+        Tallas
+      </div>
+      <div id="tallasFilter" class="collapse">
+        <div class="card-body">
+          <div *ngFor="let talla of tallas">
             <input type="checkbox" [value]="talla" (change)="onTallaChange(talla, $event)">
-            {{ talla }}
+            <label class="checkbox-label">{{ talla }}</label>
+          </div>
         </div>
+      </div>
     </div>
-    <h5>Filtrar por Precio</h5>
-    <div class="row">
-        <div class="col-md-6">
-            <label for="minPrice">Precio Mínimo</label>
-            <input type="number" id="minPrice" [(ngModel)]="minPrice" (input)="onPriceChange()" class="form-control" />
+  
+    <!-- Tarjeta de Filtro de Precio -->
+    <div class="card mb-3">
+      <div class="card-header btn-filter" data-bs-toggle="collapse" data-bs-target="#precioFilter" aria-expanded="false" aria-controls="precioFilter">
+        Filtrar por Precio
+      </div>
+      <div id="precioFilter" class="collapse">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-12">
+              <label for="minPrice">Precio Mínimo</label>
+              <input type="number" id="minPrice" [(ngModel)]="minPrice" (input)="onPriceChange()" class="form-control" />
+            </div>
+            <div class="col-md-12">
+              <label for="maxPrice">Precio Máximo</label>
+              <input type="number" id="maxPrice" [(ngModel)]="maxPrice" (input)="onPriceChange()" class="form-control" />
+            </div>
+          </div>
         </div>
-        <div class="col-md-6">
-            <label for="maxPrice">Precio Máximo</label>
-            <input type="number" id="maxPrice" [(ngModel)]="maxPrice" (input)="onPriceChange()" class="form-control" />
-        </div>
+      </div>
     </div>
-</div>
+  </div>
+  

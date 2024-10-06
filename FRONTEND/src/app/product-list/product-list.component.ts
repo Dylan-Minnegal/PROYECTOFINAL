@@ -40,7 +40,7 @@ export class ProductListComponent implements OnInit {
   }) {
     this.categoriasSeleccionadas = filters.categorias;
     this.sexosSeleccionados = filters.sexos;
-    this.tallasSeleccionadas = filters.tallas; // Asignar tallas seleccionadas
+    this.tallasSeleccionadas = filters.tallas; 
     this.minPrice = filters.minPrice; 
     this.maxPrice = filters.maxPrice;
 
