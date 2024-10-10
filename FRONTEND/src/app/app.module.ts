@@ -10,7 +10,8 @@ import { HeaderComponent } from './header/header.component';
 import { FilterProductsPipe } from './filter-products.pipe';
 import { FiltersComponent } from './filters/filters.component';
 import { FooterComponent } from './footer/footer.component';
-import { LoginComponent } from './login/login.component'; 
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component'; 
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { LoginComponent } from './login/login.component';
     FilterProductsPipe,
     FiltersComponent,
     FooterComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

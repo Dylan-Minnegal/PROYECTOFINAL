@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -12,30 +13,20 @@ export class LoginComponent {
   contrasena: string = '';
   errorMessage: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private AuthService: AuthService) {}
 
   onSubmit(): void {
-    const url = 'http://api.daw/api/login'; // URL de tu API de inicio de sesión
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    const body = { email: this.email, password: this.contrasena }; 
-    console.log(body);
-        
-
-    this.http.post(url, body, { headers }).subscribe({
+    this.AuthService.login(this.email, this.contrasena).subscribe({
       next: (response: any) => {
         console.log('Inicio de sesión exitoso:', response);
 
-
-
-        localStorage.setItem('authToken', response.token); 
-        localStorage.setItem('usuario', JSON.stringify(response.usuario));
+        this.AuthService.storeSessionData(response.token, response.usuario);
 
         this.router.navigate(['/']).then(() => {
-          window.location.reload(); // Recargar la página principal
+          window.location.reload();
         });
-
       },
-      error: (error) => {
+      error: () => {
         this.errorMessage = 'Credenciales incorrectas. Inténtalo de nuevo.';
       },
     });

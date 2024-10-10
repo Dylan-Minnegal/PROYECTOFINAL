@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-header',
@@ -9,22 +10,17 @@ import { Router } from '@angular/router';
 export class HeaderComponent implements OnInit {
   usuario: any = null; 
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private AuthService: AuthService) {}
 
   ngOnInit(): void {
-    const usuarioString = localStorage.getItem('usuario');
+    const usuarioString = sessionStorage.getItem('usuario');
 
     if (usuarioString) {
       this.usuario = JSON.parse(usuarioString); 
-      console.log('Usuario recuperado:', this.usuario);
-    } else {
-      console.log('Error al recuperar usuario de localStorage');
     }
   }
 
   logout(): void {
-    localStorage.removeItem('authToken'); 
-    localStorage.removeItem('usuario'); 
-    window.location.reload()
+    this.AuthService.logout();
   }
 }

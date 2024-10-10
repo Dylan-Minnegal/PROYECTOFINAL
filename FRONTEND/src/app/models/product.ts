@@ -24,4 +24,7 @@ export interface Valoracion {
     calificacion: number;
     comentario: string;
     product_id: number;
+    id_usuario: number; 
+    nombreUsuario?: string; 
+    apellidosUsuario?: string; 
 }

@@ -12,8 +12,8 @@ export class ValoracionesService {
   constructor(private http: HttpClient) {}
 
   obtenerValoracionesPorProductoId(productId: number): Observable<Valoracion[]> {
-    const url = `${this.apiUrl}/${productId}`; // Construir la URL con el ID
-    return this.http.get<Valoracion[]>(url); // Realizar la petición GET y devolver un Observable
+    const url = `${this.apiUrl}/${productId}`; 
+    return this.http.get<Valoracion[]>(url);
   }
 
   enviarValoracion(review: Valoracion): void {

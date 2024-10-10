@@ -1,4 +1,7 @@
 <div class="container mt-4">
+    <div *ngIf="!producto" class="alert alert-warning">
+        Producto no encontrado.
+    </div>
     <div *ngIf="producto" class="row">
         <div class="col-md-6">
             <img [src]="producto.imagen" class="product-image" alt="{{ producto.nombre }}">
@@ -9,7 +12,6 @@
             <p><strong>Precio:</strong> {{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</p>
             <p><strong>Color:</strong> {{ producto.color }}</p>
 
-            <!-- Sección de tallas disponibles -->
             <div *ngIf="producto.tallas.length > 0">
                 <label for="tallaSelect"><strong>Tallas disponibles:</strong></label>
                 <select id="tallaSelect" [(ngModel)]="selectedTalla" (change)="onTallaChange()">
@@ -17,60 +19,68 @@
                         {{ talla.talla }}-{{ talla.pivot.cantidad }}
                     </option>
                 </select>
-                <p class="mt-3" *ngIf="selectedCantidad !== null">
-                    <strong>Cantidad disponible:</strong> {{ selectedCantidad }}
-                </p>
             </div>
 
-            <!-- Botón de agregar al carrito -->
             <button class="btn btn-primary p-1 mt-2">Agregar al carrito</button>
         </div>
 
         <div class="col-md-12 mt-5"></div>
         <h4>Valoraciones del Producto</h4>
 
-        <!-- Si hay valoraciones, las mostramos -->
         <div *ngIf="valoraciones.length > 0">
             <div class="card my-2" *ngFor="let valoracion of valoraciones">
                 <div class="card-body">
                     <h5 class="card-title">Calificación: {{ valoracion.calificacion }} estrellas</h5>
                     <p class="card-text">{{ valoracion.comentario }}</p>
+                    <p class="card-subtitle text-muted">Valorado por: {{ valoracion.nombreUsuario }}
+                        {{valoracion.apellidosUsuario}}</p>
                 </div>
             </div>
         </div>
 
-        <!-- Mensaje cuando no hay valoraciones -->
         <div *ngIf="valoraciones.length === 0" class="alert alert-info">
             Aún no hay valoraciones para este producto.
         </div>
     </div>
 </div>
-<div class="col-md-12 mt-5">
-    <h4>Valorar Producto</h4>
-    <form (ngSubmit)="submitReview()">
-        <div class="form-group">
-            <label for="rating">Calificación:</label>
-            <select id="rating" class="form-control w-25" [(ngModel)]="valoracion.calificacion" name="rating">
-                <option value="5">★★★★★ - Excelente</option>
-                <option value="4">★★★★☆ - Muy Bueno</option>
-                <option value="3">★★★☆☆ - Bueno</option>
-                <option value="2">★★☆☆☆ - Regular</option>
-                <option value="1">★☆☆☆☆ - Malo</option>
-            </select>
+<div class="container mt-5 d-flex justify-content-center align-items-center" *ngIf="producto">
+    <div class="card p-4 shadow-sm" style="width: 100%">
+      <h2>Enviar Valoración</h2>
+  
+      <div *ngIf="!isAuthenticated" class="alert alert-danger">
+        Debes <a routerLink="/login">iniciar sesión</a> para poder enviar una valoración.
+      </div>
+  
+      <form #calificacionForm="ngForm" (ngSubmit)="submitReview(calificacionForm)" novalidate>
+        <div class="mb-3">
+          <label for="calificacion" class="form-label">Calificación</label>
+          <select id="calificacion" class="form-control" [(ngModel)]="valoracion.calificacion" name="calificacion" required>
+            <option value="5">5 - Excelente</option>
+            <option value="4">4 - Muy Bueno</option>
+            <option value="3">3 - Bueno</option>
+            <option value="2">2 - Regular</option>
+            <option value="1">1 - Malo</option>
+          </select>
+          <div *ngIf="calificacionForm.submitted && calificacionForm.controls['calificacion']?.invalid" class="text-danger">
+            La calificación es obligatoria.
+          </div>
         </div>
-
-        <div class="form-group mt-3">
-            <label for="reviewText">Comentario:</label>
-            <textarea id="reviewText" class="form-control" rows="4" placeholder="Escribe tu comentario aquí..."
-                [(ngModel)]="valoracion.comentario" name="reviewText"></textarea>
+  
+        <div class="mb-3">
+          <label for="comentario" class="form-label">Comentario</label>
+          <textarea id="comentario" class="form-control" [(ngModel)]="valoracion.comentario" name="comentario" required minlength="10"
+            maxlength="200" placeholder="Escribe un comentario (mínimo 10 caracteres)" #comentarioCtrl="ngModel"></textarea>
+          <div *ngIf="comentarioCtrl.invalid && (comentarioCtrl.dirty || comentarioCtrl.touched || calificacionForm.submitted)">
+            <small class="text-danger" *ngIf="comentarioCtrl.errors?.['required']">El comentario es obligatorio.</small>
+            <small class="text-danger" *ngIf="comentarioCtrl.errors?.['minlength']">El comentario debe tener al menos 10 caracteres.</small>
+            <small class="text-danger" *ngIf="comentarioCtrl.errors?.['maxlength']">El comentario no debe exceder los 200 caracteres.</small>
+          </div>
         </div>
-
-        <button type="submit" class="btn btn-success mt-3">Enviar Valoración</button>
-    </form>
-</div>
-
-
-
-<div *ngIf="!producto" class="alert alert-warning">
-    Producto no encontrado.
-</div>
+  
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary w-50" [disabled]="calificacionForm.invalid || !isAuthenticated">Enviar Valoración</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  
