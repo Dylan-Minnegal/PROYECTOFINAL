@@ -17,6 +17,7 @@ class ValoracionRequest extends FormRequest
     {
         return [
             'product_id' => 'required|exists:productos,id',
+            'id_usuario' => 'required|exists:usuarios,id|numeric', 
             'calificacion' => 'required|integer|min:1|max:5',
             'comentario' => 'nullable|string'
         ];

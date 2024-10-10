@@ -20,6 +20,7 @@ Route::post('/valoraciones', [ValoracionController::class, 'store']);
 Route::delete('/valoraciones/{id}', [ValoracionController::class, 'destroy']);
 Route::put('/valoraciones/{id}', [ValoracionController::class, 'update']);
 
+Route::get('/usuarios/{id}', [UsuarioController::class, 'show']);
 Route::post('/usuarios', [UsuarioController::class, 'store']);
 Route::put('/usuarios', [UsuarioController::class, 'update']);
 

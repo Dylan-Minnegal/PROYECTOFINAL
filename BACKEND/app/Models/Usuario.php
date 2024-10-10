@@ -33,4 +33,9 @@ class Usuario extends Authenticatable implements JWTSubject
     {
         return [];  // Retornar un array vacío si no hay claims personalizados
     }
+    public function valoraciones()
+    {
+        return $this->hasMany(Valoracion::class, 'id_usuario');
+    }
+
 }

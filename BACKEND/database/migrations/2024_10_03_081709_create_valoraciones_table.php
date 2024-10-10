@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('valoraciones', function (Blueprint $table) {
             $table->id(); 
+            $table->text('usuario');
             $table->foreignId('product_id')->constrained('productos')->onDelete('cascade'); 
             $table->tinyInteger('calificacion');
             $table->text('comentario')->nullable();

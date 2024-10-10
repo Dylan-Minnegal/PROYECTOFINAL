@@ -13,13 +13,18 @@ class Valoracion extends Model
     
     protected $fillable = [
         'product_id',
+        'id_usuario',
         'calificacion',
         'comentario'
     ];
 
-    // Relación inversa con el modelo Producto
     public function producto()
     {
         return $this->belongsTo(Producto::class, 'product_id');
     }
+    public function usuario()
+    {
+        return $this->belongsTo(Usuario::class, 'id_usuario');
+    }
+
 }
