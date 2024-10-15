@@ -36,7 +36,7 @@ class ValoracionController extends Controller
         $valoraciones = Valoracion::where('product_id', $product_id)->get();
 
         if ($valoraciones->isEmpty()) {
-            return response()->json(['message' => 'No hay valoraciones para este producto.'], 404);
+            return response()->json(['message' => 'No hay valoraciones para este producto.']);
         }
 
         return response()->json($valoraciones);
