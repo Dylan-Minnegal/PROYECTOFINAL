@@ -12,15 +12,15 @@ export class FiltersComponent {
   
   sexosSeleccionados: string[] = [];
   categoriasSeleccionadas: string[] = [];
-  tallasSeleccionadas: string[] = []; // Aquí agregamos tallas seleccionadas
+  tallasSeleccionadas: string[] = []; 
   
   minPrice: number = 0;
-  maxPrice: number = 10000000; // Inicializa un rango de precios
+  maxPrice: number = 10000000; 
   
   @Output() filterChange = new EventEmitter<{
     categorias: string[],
     sexos: string[],
-    tallas: string[], // Agregar tallas a la emisión
+    tallas: string[], 
     minPrice: number,
     maxPrice: number
   }>();
@@ -69,7 +69,7 @@ export class FiltersComponent {
     this.filterChange.emit({
       categorias: this.categoriasSeleccionadas,
       sexos: this.sexosSeleccionados,
-      tallas: this.tallasSeleccionadas, // Emite tallas seleccionadas
+      tallas: this.tallasSeleccionadas,
       minPrice: this.minPrice,
       maxPrice: this.maxPrice
     });

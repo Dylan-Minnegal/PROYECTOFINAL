@@ -1,0 +1,34 @@
+<div class="container mt-4">
+    <h2>Carrito de Compra</h2>
+
+    <div *ngIf="cartItems.length === 0" class="alert alert-info">
+        Tu carrito está vacío. Si quieres comprar, dirígete <a [routerLink]="['/']">aquí</a>.
+    </div>
+
+
+    <div *ngIf="cartItems.length > 0">
+        <div class="list-group ">
+            <div class="list-group-item" *ngFor="let item of cartItems">
+                <div class="d-flex  align-items-center">
+                    <div class="d-flex flex-fill align-items-center">
+                        <img [src]="item.imagen" alt="{{ item.nombre }}" class="img-fluid me-3"
+                            style="width: 150px; height: auto;">
+                        <div>
+                            <h5>{{ item.nombre }}</h5>
+                            <p>Cantidad: {{ item.cantidad }}</p>
+                            <p>Talla: {{ item.talla }}</p>
+                            <p>Precio unitario: {{ item.precio | currency:'EUR' }}</p>
+                            <p>Subtotal: {{ item.precio * item.cantidad | currency:'EUR' }}</p>
+                        </div>
+                    </div>
+                    <button class="btn btn-danger btn-sm" (click)="removeProduct(item.id)">Eliminar</button>
+                </div>
+            </div>
+
+
+            <div class="mt-4">
+                <h4>Precio Total: {{ totalPrice | currency:'EUR' }}</h4>
+                <button class="btn btn-warning" (click)="clearCart()">Vaciar Carrito</button>
+            </div>
+        </div>
+    </div>

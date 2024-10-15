@@ -28,3 +28,11 @@ export interface Valoracion {
     nombreUsuario?: string; 
     apellidosUsuario?: string; 
 }
+export interface CartProduct {
+    id: number;
+    imagen: string,
+    nombre: string;
+    precio: number;
+    cantidad: number;
+    talla: string;
+}

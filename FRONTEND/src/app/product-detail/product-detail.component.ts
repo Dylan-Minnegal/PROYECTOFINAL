@@ -5,6 +5,7 @@ import { Producto, Valoracion } from '../models/product';
 import { ValoracionesService } from '../valoraciones.service';
 import { UsuarioService } from '../usuarios-service.service'; 
 import { AuthService } from '../auth.service';
+import { CartService } from '../cart.service';
 
 
 
@@ -19,7 +20,8 @@ export class ProductDetailComponent implements OnInit {
   producto: Producto | undefined;
   valoraciones: Valoracion[] = [];
   selectedTalla: string | undefined;
-  selectedCantidad: number | null = null;
+  cantidad: number = 1;
+  cantidadDisponible: number = 0;
   valoracion = {
     calificacion: 5,
     comentario: '',    
@@ -31,7 +33,8 @@ export class ProductDetailComponent implements OnInit {
     private productService: ProductService,
     private valoracionesService: ValoracionesService,
     private usuarioService: UsuarioService,
-    private authService: AuthService
+    private authService: AuthService,
+    private cartService: CartService,
   ) { }
 
   ngOnInit(): void {
@@ -45,6 +48,7 @@ export class ProductDetailComponent implements OnInit {
 
         if (this.producto && this.producto.id) {
           this.cargarValoraciones(this.producto.id);
+          
         }
       },
       (error) => {
@@ -55,49 +59,67 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onTallaChange(): void {
-    if (this.producto) {
-      const tallaSeleccionada = this.producto.tallas.find(t => t.talla === this.selectedTalla);
+    if (this.producto && this.producto.tallas) {
+      const tallaSeleccionada = this.producto.tallas.find((talla: any) => talla.talla === this.selectedTalla);
+  
       if (tallaSeleccionada) {
-        this.selectedCantidad = tallaSeleccionada.pivot.cantidad;
+        this.cantidadDisponible = tallaSeleccionada.pivot?.cantidad || 0;
       } else {
-        this.selectedCantidad = null;
+        this.cantidadDisponible = 0;
       }
     }
   }
+  agregarAlCarrito(): void {
+    if (this.producto && this.selectedTalla && this.cantidad > 0 && this.cantidad <= this.cantidadDisponible) {
+      const productoCarrito = {
+        id: this.producto.id,
+        imagen: this.producto.imagen,
+        nombre: this.producto.nombre,
+        precio: this.producto.precio,
+        talla: this.selectedTalla,
+        cantidad: this.cantidad
+      };
+      this.cartService.addProductToCart(productoCarrito);
+    } else {
+      console.error('El producto o los parámetros del carrito no son válidos.');
+    }
+  }
+  
 
   cargarValoraciones(productId: number): void {
     this.valoracionesService.obtenerValoracionesPorProductoId(productId).subscribe(
       (data) => {
-        this.valoraciones = data;
-
-        this.valoraciones.forEach((valoracion) => {
-          this.usuarioService.obtenerUsuarioPorId(valoracion.id_usuario).subscribe(
-            (usuario) => {
-              valoracion.nombreUsuario = usuario.nombre;
-              valoracion.apellidosUsuario = usuario.apellidos;       
-            },
-            (error) => {
-              console.error(`Error al cargar el nombre del usuario con ID ${valoracion.id_usuario}:`, error);
-            }
-          );
-        });
-
+        
+        if (data && (data as any).message) {
+          this.valoraciones = []; 
+          return;
+        }
+  
+        if (Array.isArray(data)) {
+          this.valoraciones = data;
+  
+          this.valoraciones.forEach((valoracion) => {
+            this.usuarioService.obtenerUsuarioPorId(valoracion.id_usuario).subscribe(
+              (usuario) => {
+                valoracion.nombreUsuario = usuario.nombre;
+                valoracion.apellidosUsuario = usuario.apellidos;                
+              },
+              (error) => {
+                console.error(`Error al cargar el nombre del usuario con ID ${valoracion.id_usuario}:`, error);
+              }
+            );
+          });
+        }
       },
       (error) => {
         console.error('Error al cargar las valoraciones:', error);
       }
     );
   }
+  
 
   submitReview(calificacionForm: any): void {
     const usuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
-
-    if (!this.authToken) {
-      return;
-    }
-    if (!usuario) {
-      return;
-    }
 
     if (!this.producto) {
       console.error('Producto no encontrado. No se puede enviar la valoración.');
@@ -105,14 +127,13 @@ export class ProductDetailComponent implements OnInit {
     }
 
     const reviewData = {
-      calificacion: this.valoracion.calificacion,
-      comentario: this.valoracion.comentario,
       product_id: this.producto.id,
-      id_usuario: usuario.id 
+      id_usuario: usuario.id ,
+      calificacion: this.valoracion.calificacion,
+      comentario: this.valoracion.comentario
     };
 
     this.valoracionesService.enviarValoracion(reviewData);
     calificacionForm.resetForm();
-    window.location.reload()
   }
 }

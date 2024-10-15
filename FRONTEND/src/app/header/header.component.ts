@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { CartService } from '../cart.service';
 
 @Component({
   selector: 'app-header',
@@ -9,8 +10,10 @@ import { AuthService } from '../auth.service';
 })
 export class HeaderComponent implements OnInit {
   usuario: any = null; 
+  cartItemCount: number = 0;
 
-  constructor(private router: Router, private AuthService: AuthService) {}
+
+  constructor(private router: Router, private AuthService: AuthService, private cartService: CartService) {}
 
   ngOnInit(): void {
     const usuarioString = sessionStorage.getItem('usuario');
@@ -18,6 +21,9 @@ export class HeaderComponent implements OnInit {
     if (usuarioString) {
       this.usuario = JSON.parse(usuarioString); 
     }
+    this.cartService.currentCartCount.subscribe(count => {
+      this.cartItemCount = count;
+    });
   }
 
   logout(): void {
