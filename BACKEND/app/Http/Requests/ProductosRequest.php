@@ -13,6 +13,7 @@ class ProductosRequest extends FormRequest
     public function rules()
     {
         return [
+            'id'=> 'required|integer',
             'nombre' => 'required|string|max:255',
             'imagen' => 'required|string', 
             'color' => 'required|string|max:50',
