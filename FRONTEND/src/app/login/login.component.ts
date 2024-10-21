@@ -19,16 +19,23 @@ export class LoginComponent {
     this.AuthService.login(this.email, this.contrasena).subscribe({
       next: (response: any) => {
         console.log('Inicio de sesión exitoso:', response);
-
+  
         this.AuthService.storeSessionData(response.token, response.usuario);
-
-        this.router.navigate(['/']).then(() => {
-          window.location.reload();
-        });
+  
+        if (response.usuario.rol === 'admin') {
+          this.router.navigate(['/admin']).then(() => {
+            window.location.reload();
+          });
+        } else {
+          this.router.navigate(['/']).then(() => {
+            window.location.reload();
+          });
+        }
       },
       error: () => {
         this.errorMessage = 'Credenciales incorrectas. Inténtalo de nuevo.';
       },
     });
   }
+  
 }

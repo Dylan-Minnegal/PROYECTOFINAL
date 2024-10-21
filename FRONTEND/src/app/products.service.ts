@@ -31,6 +31,19 @@ export class ProductService {
       })
     );
   }
-    
+  actualizarProducto(producto: Producto): Observable<Producto> {
+    return this.http.put<Producto>(`${this.apiUrl}/${producto.id}`, producto).pipe(
+      map((productoActualizado) => {
+        return productoActualizado;
+      })
+    );
+  }
+  eliminarProducto(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
+      map(() => {
+        this.productos = this.productos.filter(producto => producto.id !== id);
+      })
+    );
+  }
   
 }

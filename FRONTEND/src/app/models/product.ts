@@ -9,6 +9,7 @@ export interface Talla {
 }
 
 
+
 export interface Producto {
     id: number;
     nombre: string;

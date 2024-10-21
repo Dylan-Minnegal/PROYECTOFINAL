@@ -8,7 +8,6 @@ import { AuthService } from '../auth.service';
 import { CartService } from '../cart.service';
 
 
-
 @Component({
   selector: 'app-product-detail',
   templateUrl: './product-detail.component.html',
@@ -34,7 +33,7 @@ export class ProductDetailComponent implements OnInit {
     private valoracionesService: ValoracionesService,
     private usuarioService: UsuarioService,
     private authService: AuthService,
-    private cartService: CartService,
+    private cartService: CartService
   ) { }
 
   ngOnInit(): void {
@@ -79,7 +78,7 @@ export class ProductDetailComponent implements OnInit {
         talla: this.selectedTalla,
         cantidad: this.cantidad
       };
-      this.cartService.addProductToCart(productoCarrito);
+      this.cartService.añadirProductoAlCarrito(productoCarrito);
     } else {
       console.error('El producto o los parámetros del carrito no son válidos.');
     }

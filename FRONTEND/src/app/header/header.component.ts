@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
     if (usuarioString) {
       this.usuario = JSON.parse(usuarioString); 
     }
-    this.cartService.currentCartCount.subscribe(count => {
+    this.cartService.cantidadActualCarrito.subscribe(count => {
       this.cartItemCount = count;
     });
   }

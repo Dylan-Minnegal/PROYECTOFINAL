@@ -6,49 +6,64 @@ import { CartProduct } from './models/product';
   providedIn: 'root'
 })
 export class CartService {
-  private cartItemCount = new BehaviorSubject<number>(0);
-  currentCartCount = this.cartItemCount.asObservable();
+  private cantidadArticulosCarrito = new BehaviorSubject<number>(0);
+  cantidadActualCarrito = this.cantidadArticulosCarrito.asObservable();
 
-  private cartItems = new BehaviorSubject<CartProduct[]>([]);
-  currentCartItems = this.cartItems.asObservable();
+  private articulosCarrito = new BehaviorSubject<CartProduct[]>([]);
+  articulosActualesCarrito = this.articulosCarrito.asObservable();
 
-  constructor() {}
+  constructor() {
+    const articulosDesdeLocalStorage = this.cargarCarritoDesdeLocalStorage();
+    this.articulosCarrito.next(articulosDesdeLocalStorage); 
+    this.actualizarConteoProductosUnicos();
+  }
 
-  addProductToCart(product: CartProduct): void {
-    let currentItems = this.cartItems.value;
+  añadirProductoAlCarrito(producto: CartProduct): void {
+    let articulosActuales = this.articulosCarrito.value;
 
-    const itemIndex = currentItems.findIndex(item => item.id === product.id && item.talla === product.talla);
+    const indiceArticulo = articulosActuales.findIndex(item => item.id === producto.id && item.talla === producto.talla);
 
-    if (itemIndex !== -1) {
-      currentItems[itemIndex].cantidad += product.cantidad;
+    if (indiceArticulo !== -1) {
+      articulosActuales[indiceArticulo].cantidad += producto.cantidad;
     } else {
-      currentItems.push({ ...product, cantidad: product.cantidad });
+      articulosActuales.push({ ...producto, cantidad: producto.cantidad });
     }
 
-    this.cartItems.next(currentItems);
-    this.updateUniqueProductCount(); 
+    this.articulosCarrito.next(articulosActuales);
+    this.guardarCarritoEnLocalStorage();
+    this.actualizarConteoProductosUnicos(); 
   }
 
-  private updateUniqueProductCount(): void {
-    const uniqueProductCount = this.cartItems.value.length;
-    this.cartItemCount.next(uniqueProductCount);
+  private actualizarConteoProductosUnicos(): void {
+    const conteoProductosUnicos = this.articulosCarrito.value.length;
+    this.cantidadArticulosCarrito.next(conteoProductosUnicos);
   }
 
-  getCartItems(): CartProduct[] {
-    return this.cartItems.value;
+  obtenerArticulosDelCarrito(): CartProduct[] {
+    return this.articulosCarrito.value;
   }
 
-  removeProductFromCart(productId: number): void {
-    let currentItems = this.cartItems.value;
+  eliminarProductoDelCarrito(productoId: number): void {
+    let articulosActuales = this.articulosCarrito.value;
 
-    currentItems = currentItems.filter(item => item.id !== productId);
+    articulosActuales = articulosActuales.filter(item => item.id !== productoId);
 
-    this.cartItems.next(currentItems);
-    this.updateUniqueProductCount();
+    this.articulosCarrito.next(articulosActuales);
+    this.guardarCarritoEnLocalStorage(); 
+    this.actualizarConteoProductosUnicos();
   }
 
-  clearCart(): void {
-    this.cartItems.next([]);
-    this.updateUniqueProductCount();
+  limpiarCarrito(): void {
+    this.articulosCarrito.next([]);
+    this.actualizarConteoProductosUnicos();
+  }
+  private guardarCarritoEnLocalStorage(): void {
+    const articulos = this.articulosCarrito.value;
+    localStorage.setItem('carritoArticulos', JSON.stringify(articulos));
+  }
+
+  private cargarCarritoDesdeLocalStorage(): CartProduct[] {
+    const articulos = localStorage.getItem('carritoArticulos');
+    return articulos ? JSON.parse(articulos) : [];
   }
 }

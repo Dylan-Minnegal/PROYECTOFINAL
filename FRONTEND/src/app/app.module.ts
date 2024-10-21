@@ -12,7 +12,9 @@ import { FiltersComponent } from './filters/filters.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { CartComponent } from './cart/cart.component'; 
+import { CartComponent } from './cart/cart.component';
+import { PanelAdminComponent } from './panel-admin/panel-admin.component';
+import { ActualizarProductoComponent } from './actualizar-producto/actualizar-producto.component'; 
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { CartComponent } from './cart/cart.component';
     FooterComponent,
     LoginComponent,
     RegisterComponent,
-    CartComponent
+    CartComponent,
+    PanelAdminComponent,
+    ActualizarProductoComponent
   ],
   imports: [
     BrowserModule,

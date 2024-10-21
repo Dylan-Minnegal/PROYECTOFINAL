@@ -1,0 +1,25 @@
+<div class="panel-admin">
+    <h1>Panel de Administración</h1>
+    <div *ngIf="productos.length === 0">
+        <p>No hay productos disponibles.</p>
+    </div>
+    <div class="row">
+        <div *ngFor="let producto of productos" class="col-md-2 col-sm-6">
+            <div class="card mb-4">
+                <h2 class="m-1">{{ producto.nombre }}</h2>
+                <img [src]="producto.imagen" alt="{{ producto.nombre }}" class="img-fluid mb-2" style="width: 100%; height: auto;">
+                <p class="m-1">Precio: {{ producto.precio }} €</p>
+                <p class="m-1">Tallas:</p>
+                <ul class="list-unstyled">
+                    <li *ngFor="let talla of producto.tallas" class="m-2">
+                        {{ talla.talla }}: {{ talla.pivot.cantidad }} unidades
+                    </li>
+                </ul>
+                <div class="d-flex justify-content-center">
+                    <button (click)="actualizarProducto(producto)" class="btn btn-warning w-50 m-2">Actualizar</button>
+                    <button (click)="eliminarProducto(producto.id)" class="btn btn-danger w-50 m-2">Eliminar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

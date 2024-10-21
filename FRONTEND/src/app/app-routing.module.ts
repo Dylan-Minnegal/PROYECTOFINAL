@@ -5,15 +5,20 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CartComponent } from './cart/cart.component';
-
-
+import { PanelAdminComponent } from './panel-admin/panel-admin.component'; 
+import { AdminGuard } from './admin.guard';
+import { ActualizarProductoComponent } from './actualizar-producto/actualizar-producto.component'; 
 
 const routes: Routes = [
   { path: '', component: ProductListComponent },
   { path: 'producto/:id', component: ProductDetailComponent } ,
   { path: 'login', component: LoginComponent } ,
   { path: 'register', component: RegisterComponent } ,
-  { path: 'cart', component: CartComponent } 
+  { path: 'cart', component: CartComponent } ,
+  { path: 'admin', component: PanelAdminComponent, canActivate: [AdminGuard] }, 
+  { path: 'actualizar-producto/:id', component: ActualizarProductoComponent, canActivate: [AdminGuard] }, 
+
+
 ];
 
 @NgModule({

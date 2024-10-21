@@ -1,0 +1,47 @@
+<div class="actualizar-producto">
+    <h1>Actualizar Producto</h1>
+    <form (ngSubmit)="guardarCambios()">
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Nombre</label>
+            <input type="text" id="nombre" [(ngModel)]="producto.nombre" name="nombre" required class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="precio" class="form-label">Precio</label>
+            <input type="number" id="precio" [(ngModel)]="producto.precio" name="precio" required class="form-control">
+        </div>
+
+        <div *ngIf="producto.imagen">
+            <h5>Vista Previa:</h5>
+            <img [src]="producto.imagen" alt="Vista previa de la imagen" class="img-fluid mb-2" style="max-width: 200px; height: auto;">
+        </div>
+
+        <div class="mb-3">
+            <label for="nuevaImagen" class="form-label">Agregar nueva imagen</label>
+            <input type="file" id="nuevaImagen" (change)="onFileSelected($event)" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label for="talla" class="form-label">Tallas existentes</label>
+            <ul>
+                <li *ngFor="let talla of producto.tallas">{{ talla.talla }} - {{talla.pivot.cantidad}}</li>
+            </ul>
+        </div>
+
+        <div class="mb-3">
+            <label for="nuevaTalla" class="form-label">Agregar nueva talla</label>
+            <select id="nuevaTalla" [(ngModel)]="nuevaTalla" name="nuevaTalla" class="form-select" required>
+                <option value="" disabled selected>Selecciona una talla</option>
+                <option *ngFor="let talla of tallas" [value]="talla">{{ talla }}</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="cantidad" class="form-label">Cantidad</label>
+            <input type="number" id="cantidad" [(ngModel)]="nuevaCantidad" name="cantidad" min="1" required class="form-control">
+            <button type="button" (click)="agregarTalla()" class="btn btn-secondary mt-2">Agregar Talla</button>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <a routerLink="/paneladmin" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
