@@ -10,10 +10,16 @@ import { Producto, Talla } from '../models/product'; // Asegúrate de importar l
 })
 export class ActualizarProductoComponent implements OnInit {
   tallas: string[] = ['S', 'M', 'L', 'XL'];
+  categorias: string[] = ['Camisetas', 'Pantalones', 'Faldas', 'Zapatillas', 'Accesorios'];
+  sexos: string[] = ['Hombre', 'Mujer', 'Unisex'];
+  sexoSeleccionado: string = '';
+  categoriaSeleccionada: string = '';
   producto!: Producto;
   id!: number;
   nuevaTalla: string = '';
   nuevaCantidad: number = 1;
+  nuevaCategoria: string = '';
+
 
   constructor(
     private productService: ProductService,
@@ -50,7 +56,6 @@ export class ActualizarProductoComponent implements OnInit {
     if (this.nuevaTalla && this.nuevaCantidad > 0) {
       let tallaId: number;
 
-      // Asignar ID basado en la talla
       switch (this.nuevaTalla) {
         case 'S':
           tallaId = 1;
@@ -69,27 +74,39 @@ export class ActualizarProductoComponent implements OnInit {
           return;
       }
 
-      // Crear el objeto de talla para enviar a la API
-      const nuevaTallaObj: Talla = {
-        id: tallaId,         // ID de la talla
-        talla: this.nuevaTalla, // Nombre de la talla (si es necesario)
-        pivot: {
-          producto_id: this.producto.id, // ID del producto
-          talla_id: tallaId,             // ID de la talla
-          cantidad: this.nuevaCantidad    // Cantidad de esta talla
-        }
-      };
+      const tallaExistente = this.producto.tallas.find(talla => talla.id === tallaId);
 
-      // Agregar la nueva talla al producto
-      this.producto.tallas.push(nuevaTallaObj);
+      if (tallaExistente) {
+        tallaExistente.pivot.cantidad += this.nuevaCantidad;
+      } else {
+        const nuevaTallaObj: Talla = {
+          id: tallaId,
+          talla: this.nuevaTalla,
+          pivot: {
+            producto_id: this.producto.id,
+            talla_id: tallaId,
+            cantidad: this.nuevaCantidad
+          }
+        };
 
-      // Reiniciar campos para la próxima entrada
+        this.producto.tallas.push(nuevaTallaObj);
+      }
+
       this.nuevaTalla = '';
       this.nuevaCantidad = 1;
     } else {
       alert("Por favor, ingresa una talla válida y una cantidad mayor que 0.");
     }
   }
+
+  actualizarCategoria(): void {
+    this.producto.categoria = this.categoriaSeleccionada;
+  }
+  
+  actualizarSexo(): void {
+    this.producto.sexo = this.sexoSeleccionado;
+  }
+
 
 
   guardarCambios(): void {
@@ -103,14 +120,13 @@ export class ActualizarProductoComponent implements OnInit {
       sexo: this.producto.sexo,
       categoria: this.producto.categoria,
       tallas: this.producto.tallas.map(talla => ({
-        id: talla.id,               
-        talla: talla.talla, 
+        id: talla.id,
+        talla: talla.talla,
         cantidad: talla.pivot.cantidad,
-        
         pivot: {
-          producto_id: this.producto.id, 
-          talla_id: talla.id, 
-          cantidad: talla.pivot.cantidad            
+          producto_id: this.producto.id,
+          talla_id: talla.id,
+          cantidad: talla.pivot.cantidad
         }
       }))
     };

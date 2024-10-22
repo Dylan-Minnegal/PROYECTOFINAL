@@ -8,13 +8,16 @@
             <div class="card mb-4">
                 <h2 class="m-1">{{ producto.nombre }}</h2>
                 <img [src]="producto.imagen" alt="{{ producto.nombre }}" class="img-fluid mb-2" style="width: 100%; height: auto;">
-                <p class="m-1">Precio: {{ producto.precio }} €</p>
-                <p class="m-1">Tallas:</p>
+                <p class="m-1"><strong>Descripcion: </strong>{{producto.descripcion}}</p>
+                <p class="m-1"><strong>Precio: </strong>{{ producto.precio }} €</p>
+                <p class="m-1"><strong>Tallas:</strong></p>
                 <ul class="list-unstyled">
                     <li *ngFor="let talla of producto.tallas" class="m-2">
-                        {{ talla.talla }}: {{ talla.pivot.cantidad }} unidades
+                        <strong>{{ talla.talla }}</strong>: {{ talla.pivot.cantidad }} unidades
                     </li>
                 </ul>
+                <p class="m-1"><strong>Categoria: </strong>{{producto.categoria}}</p>
+                <p class="m-1"><strong>Sexo: </strong>{{producto.sexo}}</p>
                 <div class="d-flex justify-content-center">
                     <button (click)="actualizarProducto(producto)" class="btn btn-warning w-50 m-2">Actualizar</button>
                     <button (click)="eliminarProducto(producto.id)" class="btn btn-danger w-50 m-2">Eliminar</button>

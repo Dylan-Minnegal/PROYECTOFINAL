@@ -5,6 +5,12 @@
             <label for="nombre" class="form-label">Nombre</label>
             <input type="text" id="nombre" [(ngModel)]="producto.nombre" name="nombre" required class="form-control">
         </div>
+
+        <div class="mb-3">
+            <label for="descripcion" class="form-label">Descripción</label>
+            <textarea id="descripcion" [(ngModel)]="producto.descripcion" name="descripcion" required class="form-control" rows="3"></textarea>
+        </div>
+
         <div class="mb-3">
             <label for="precio" class="form-label">Precio</label>
             <input type="number" id="precio" [(ngModel)]="producto.precio" name="precio" required class="form-control">
@@ -23,7 +29,7 @@
         <div class="mb-3">
             <label for="talla" class="form-label">Tallas existentes</label>
             <ul>
-                <li *ngFor="let talla of producto.tallas">{{ talla.talla }} - {{talla.pivot.cantidad}}</li>
+                <li *ngFor="let talla of producto.tallas">{{ talla.talla }} - {{ talla.pivot.cantidad }}</li>
             </ul>
         </div>
 
@@ -39,6 +45,21 @@
             <label for="cantidad" class="form-label">Cantidad</label>
             <input type="number" id="cantidad" [(ngModel)]="nuevaCantidad" name="cantidad" min="1" required class="form-control">
             <button type="button" (click)="agregarTalla()" class="btn btn-secondary mt-2">Agregar Talla</button>
+        </div>
+
+        <div class="mb-3">
+            <label for="categoria" class="form-label">Selecciona una categoría</label>
+            <select id="categoria" [(ngModel)]="categoriaSeleccionada" name="categoria" class="form-select" required (change)="actualizarCategoria()">
+                <option value="" disabled selected>Selecciona una categoría</option>
+                <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="categoria" class="form-label">Sexo</label>
+            <select id="categoria" [(ngModel)]="sexoSeleccionado" name="categoria" class="form-select" required (change)="actualizarSexo()">
+                <option value="" disabled selected>Sexo</option>
+                <option *ngFor="let sexo of sexos" [value]="sexo">{{ sexo }}</option>
+            </select>
         </div>
 
         <button type="submit" class="btn btn-primary">Guardar Cambios</button>
