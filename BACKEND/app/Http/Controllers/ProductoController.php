@@ -24,7 +24,7 @@ class ProductoController extends Controller
     }
 
 
-    public function store(ProductosRequest $request)
+    public function store(Request $request)
     {
         $producto = Producto::create($request->only('nombre', 'descripcion', 'precio', 'color', 'imagen', 'sexo', 'categoria'));
 
