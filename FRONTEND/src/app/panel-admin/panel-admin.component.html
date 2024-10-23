@@ -1,13 +1,107 @@
 <div class="panel-admin">
     <h1>Panel de Administración</h1>
+    <button class="btn btn-primary mb-3" (click)="abrirFormulario()">Añadir Producto</button>
+
     <div *ngIf="productos.length === 0">
         <p>No hay productos disponibles.</p>
     </div>
+    <div *ngIf="mostrarFormulario" class="m-2">
+        <h2>Añadir Nuevo Producto</h2>
+        <form #form="ngForm" (ngSubmit)="guardarProducto(form)">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre</label>
+                <input type="text" id="nombre" [(ngModel)]="nuevoProducto.nombre" name="nombre" required minlength="5"
+                    class="form-control" [ngClass]="{'is-invalid': form.submitted && (nuevoProducto.nombre!.length < 5)}">
+                <div *ngIf="form.submitted && (nuevoProducto.nombre!.length < 5)" class="invalid-feedback">
+                    El nombre es obligatorio y debe tener al menos 5 caracteres.
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="descripcion" class="form-label">Descripción</label>
+                <textarea id="descripcion" [(ngModel)]="nuevoProducto.descripcion" name="descripcion" required
+                    class="form-control" rows="3" minlength="10" [ngClass]="{'is-invalid': form.submitted && (nuevoProducto.descripcion!.length < 10)}"></textarea>
+                <div *ngIf="form.submitted && (nuevoProducto.descripcion!.length < 10)" class="invalid-feedback">
+                    La descripción debe tener al menos 10 caracteres.
+                </div>
+            </div>
+                        
+            <div class="mb-3">
+                <label for="precio" class="form-label">Precio</label>
+                <input type="number" id="precio" [(ngModel)]="nuevoProducto.precio" name="precio" required
+                    class="form-control" min="0" [ngClass]="{'is-invalid': form.submitted && !nuevoProducto.precio}">
+                <div *ngIf="form.submitted && !nuevoProducto.precio" class="invalid-feedback">
+                    El precio es obligatorio y debe ser un número positivo.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="color" class="form-label">Color</label>
+                <input type="text" id="color" [(ngModel)]="nuevoProducto.color" name="color" required maxlength="50"
+                    class="form-control" [ngClass]="{'is-invalid': form.submitted && !nuevoProducto.color}">
+                <div *ngIf="form.submitted && !nuevoProducto.color" class="invalid-feedback">
+                    El color es obligatorio y no puede exceder los 50 caracteres.
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="nuevaImagen" class="form-label">Agregar nueva imagen</label>
+                <input type="file" id="nuevaImagen" (change)="onFileSelected($event)" class="form-control" required>
+                <div *ngIf="form.submitted && !nuevoProducto.imagen" class="invalid-feedback">
+                    La imagen es obligatoria.
+                </div>
+            </div>
+            <div *ngIf="nuevoProducto.imagen">
+                <h5>Vista Previa:</h5>
+                <img [src]="nuevoProducto.imagen" alt="Vista previa de la imagen" class="img-fluid mb-2" style="max-width: 200px; height: auto;">
+            </div>
+    
+            <div class="mb-3">
+                <label for="categoria" class="form-label">Categoría</label>
+                <select id="categoria" [(ngModel)]="nuevoProducto.categoria" name="categoria" required
+                    class="form-select" [ngClass]="{'is-invalid': form.submitted && !nuevoProducto.categoria}">
+                    <option value="" disabled selected>Selecciona una categoría</option>
+                    <option *ngFor="let categoria of categorias" [value]="categoria">{{ categoria }}</option>
+                </select>
+                <div *ngIf="form.submitted && !nuevoProducto.categoria" class="invalid-feedback">
+                    La categoría es obligatoria.
+                </div>
+            </div>
+    
+            <div class="mb-3">
+                <label for="sexo" class="form-label">Sexo</label>
+                <select id="sexo" [(ngModel)]="nuevoProducto.sexo" name="sexo" required class="form-select"
+                    [ngClass]="{'is-invalid': form.submitted && !nuevoProducto.sexo}">
+                    <option value="" disabled selected>Selecciona un sexo</option>
+                    <option *ngFor="let sexo of sexos" [value]="sexo">{{ sexo }}</option>
+                </select>
+                <div *ngIf="form.submitted && !nuevoProducto.sexo" class="invalid-feedback">
+                    El sexo es obligatorio.
+                </div>
+            </div>
+    
+            <div class="mb-3">
+                <label for="talla" class="form-label">Talla</label>
+                <select id="talla" [(ngModel)]="nuevaTalla" name="talla" class="form-select" required>
+                    <option value="" disabled selected>Selecciona una talla</option>
+                    <option *ngFor="let talla of tallas" [value]="talla">{{ talla }}</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="cantidad" class="form-label">Cantidad</label>
+                <input type="number" id="cantidad" [(ngModel)]="nuevaCantidad" name="cantidad" min="1" required class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-primary">Guardar Producto</button>
+            <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+        </form>
+    </div>
+    
     <div class="row">
         <div *ngFor="let producto of productos" class="col-md-2 col-sm-6">
             <div class="card mb-4">
                 <h2 class="m-1">{{ producto.nombre }}</h2>
-                <img [src]="producto.imagen" alt="{{ producto.nombre }}" class="img-fluid mb-2" style="width: 100%; height: auto;">
+                <img [src]="producto.imagen" alt="{{ producto.nombre }}" class="img-fluid mb-2"
+                    style="width: 100%; height: auto;">
                 <p class="m-1"><strong>Descripcion: </strong>{{producto.descripcion}}</p>
                 <p class="m-1"><strong>Precio: </strong>{{ producto.precio }} €</p>
                 <p class="m-1"><strong>Tallas:</strong></p>

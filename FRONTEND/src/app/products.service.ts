@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Producto } from './models/product';
+import { NuevoProducto, Producto } from './models/product';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class ProductService {
   getProductoById(id: number): Observable<Producto> {
     return this.http.get<Producto>(`${this.apiUrl}/${id}`).pipe(
       map((producto) => {
-        return producto; 
+        return producto;
       })
     );
   }
@@ -38,6 +38,9 @@ export class ProductService {
       })
     );
   }
+  anadirProducto(producto: NuevoProducto): Observable<Producto> {
+    return this.http.post<Producto>(this.apiUrl, producto);
+  }
   eliminarProducto(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       map(() => {
@@ -45,5 +48,5 @@ export class ProductService {
       })
     );
   }
-  
+
 }

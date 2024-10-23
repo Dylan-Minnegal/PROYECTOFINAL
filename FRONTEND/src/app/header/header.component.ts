@@ -9,7 +9,8 @@ import { CartService } from '../cart.service';
   styleUrls: ['./header.component.sass'],
 })
 export class HeaderComponent implements OnInit {
-  usuario: any = null; 
+  usuario: any = null;
+  rolUsuario: boolean = false; 
   cartItemCount: number = 0;
 
 
@@ -20,6 +21,7 @@ export class HeaderComponent implements OnInit {
 
     if (usuarioString) {
       this.usuario = JSON.parse(usuarioString); 
+      this.rolUsuario = this.usuario.rol === 'admin'; 
     }
     this.cartService.cantidadActualCarrito.subscribe(count => {
       this.cartItemCount = count;

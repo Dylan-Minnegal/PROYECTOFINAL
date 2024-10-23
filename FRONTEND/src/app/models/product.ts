@@ -1,14 +1,13 @@
 export interface Talla {
     id: number;
     talla: string;
+    cantidad?: number;
     pivot: {
         producto_id: number;
         talla_id: number;
         cantidad: number;
     };
 }
-
-
 
 export interface Producto {
     id: number;
@@ -21,6 +20,17 @@ export interface Producto {
     imagen: string;
     tallas: Talla[];
 }
+export interface NuevoProducto {
+    nombre: string;
+    descripcion: string;
+    precio: number;
+    color: string;
+    imagen: string;
+    sexo: string;
+    categoria: string;
+    tallas: { id: number; cantidad: number; }[]; 
+}
+
 export interface Valoracion {
     calificacion: number;
     comentario: string;
