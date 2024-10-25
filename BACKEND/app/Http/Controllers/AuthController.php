@@ -25,7 +25,6 @@ class AuthController extends Controller
     
 
 
-    // Método para cerrar sesión
     public function logout()
     {
         Auth::logout();

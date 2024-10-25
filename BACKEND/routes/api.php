@@ -10,19 +10,27 @@ use App\Http\Controllers\AuthController;
 
 Route::get('/productos', [ProductoController::class, 'index']);
 Route::get('/productos/{id}', [ProductoController::class, 'show']);
-Route::post('/productos', [ProductoController::class, 'store']);
-Route::delete('/productos/{id}', [ProductoController::class, 'destroy']);
-Route::put('/productos/{id}', [ProductoController::class, 'update']);
+
 
 Route::get('/valoraciones', [ValoracionController::class, 'index']);
 Route::get('/valoraciones/{id}', [ValoracionController::class, 'show']);
 Route::post('/valoraciones', [ValoracionController::class, 'store']);
-Route::delete('/valoraciones/{id}', [ValoracionController::class, 'destroy']);
-Route::put('/valoraciones/{id}', [ValoracionController::class, 'update']);
+
 
 Route::get('/usuarios/{id}', [UsuarioController::class, 'show']);
-Route::post('/usuarios', [UsuarioController::class, 'store']);
-Route::put('/usuarios', [UsuarioController::class, 'update']);
+
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout']);
+
+Route::middleware(['auth:api', 'admin'])->group(function () {
+    Route::post('/productos', [ProductoController::class, 'store']);
+    Route::delete('/productos/{id}', [ProductoController::class, 'destroy']);
+    Route::put('/productos/{id}', [ProductoController::class, 'update']);
+
+    Route::delete('/valoraciones/{id}', [ValoracionController::class, 'destroy']);
+    Route::put('/valoraciones/{id}', [ValoracionController::class, 'update']);
+    
+    Route::post('/usuarios', [UsuarioController::class, 'store']);
+    Route::put('/usuarios', [UsuarioController::class, 'update']);
+});
