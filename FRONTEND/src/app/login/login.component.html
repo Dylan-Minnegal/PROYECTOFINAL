@@ -12,6 +12,11 @@
                 <input type="password" id="password" [(ngModel)]="contrasena" name="password" class="form-control"
                     placeholder="Introduce tu contraseña" required />
             </div>
+            <div class="text-center mt-3 mb-3">
+                ¿No tienes cuenta?
+                <a routerLink="/register" style="color: #D8E24E; text-decoration: none;">Regístrate</a>
+            </div>
+            
             <button type="submit" class="btn btn-login w-100">
                 Iniciar Sesión
             </button>

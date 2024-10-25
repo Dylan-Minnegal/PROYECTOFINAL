@@ -102,7 +102,7 @@ export class ActualizarProductoComponent implements OnInit {
   actualizarCategoria(): void {
     this.producto.categoria = this.categoriaSeleccionada;
   }
-  
+
   actualizarSexo(): void {
     this.producto.sexo = this.sexoSeleccionado;
   }
@@ -134,7 +134,6 @@ export class ActualizarProductoComponent implements OnInit {
     console.log('Datos del producto a enviar:', productoAActualizar);
 
     this.productService.actualizarProducto(productoAActualizar).subscribe(() => {
-      alert('Producto actualizado con éxito');
       this.router.navigate(['/admin']);
     }, error => {
       console.error('Error al actualizar el producto:', error);

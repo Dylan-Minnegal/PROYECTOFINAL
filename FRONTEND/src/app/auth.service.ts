@@ -21,7 +21,7 @@ export class AuthService {
     return this.http.post(url, body, { headers });
   }
 
-  storeSessionData(token: string, usuario: any): void {
+  guardarSessionStorage(token: string, usuario: any): void {
     sessionStorage.setItem(this.authTokenKey, token);
     sessionStorage.setItem(this.usuarioKey, JSON.stringify(usuario));
   }

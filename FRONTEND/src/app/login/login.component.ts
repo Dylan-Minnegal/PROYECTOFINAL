@@ -20,7 +20,7 @@ export class LoginComponent {
       next: (response: any) => {
         console.log('Inicio de sesión exitoso:', response);
   
-        this.AuthService.storeSessionData(response.token, response.usuario);
+        this.AuthService.guardarSessionStorage(response.token, response.usuario);
   
         if (response.usuario.rol === 'admin') {
           this.router.navigate(['/admin']).then(() => {
