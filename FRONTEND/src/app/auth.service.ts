@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { environment } from '../enviroment/enviroment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://api.daw/api'; 
+  private apiUrl = environment.apiUrl; 
   private authTokenKey = 'authToken'; 
   private usuarioKey = 'usuario'; 
 

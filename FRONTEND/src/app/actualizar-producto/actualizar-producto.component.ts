@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../products.service';
-import { Producto, Talla } from '../models/product'; // Asegúrate de importar la nueva interfaz
+import { Producto, Talla } from '../models/product'; 
 
 @Component({
   selector: 'app-actualizar-producto',
@@ -10,7 +10,7 @@ import { Producto, Talla } from '../models/product'; // Asegúrate de importar l
 })
 export class ActualizarProductoComponent implements OnInit {
   tallas: string[] = ['S', 'M', 'L', 'XL'];
-  categorias: string[] = ['Camisetas', 'Pantalones', 'Faldas', 'Zapatillas', 'Accesorios'];
+  categorias: string[] = ['Camisetas', 'Pantalones', 'Faldas', 'Chaquetas', 'Sudaderas'];
   sexos: string[] = ['Hombre', 'Mujer', 'Unisex'];
   sexoSeleccionado: string = '';
   categoriaSeleccionada: string = '';

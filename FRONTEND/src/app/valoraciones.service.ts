@@ -2,12 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Valoracion } from './models/product';
+import { environment } from '../enviroment/enviroment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class ValoracionesService {
-  private apiUrl: string = 'http://api.daw/api/valoraciones'; 
+  private apiUrl: string = environment.apiUrl+'/valoraciones'; 
 
   constructor(private http: HttpClient) {}
 

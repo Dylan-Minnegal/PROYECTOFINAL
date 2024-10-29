@@ -3,6 +3,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { NuevoProducto, Producto } from './models/product';
+import { environment } from '../enviroment/enviroment';
+
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,7 @@ export class ProductService {
 
   private productos: Producto[] = [];
 
-  private apiUrl = 'http://api.daw/api/productos';
+  private apiUrl = environment.apiUrl+'/productos';
 
   constructor(private http: HttpClient) { }
 

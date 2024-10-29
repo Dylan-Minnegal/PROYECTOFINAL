@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UsuarioService } from '../usuarios-service.service'; // Importar el servicio
+import { UsuarioService } from '../usuarios-service.service'; 
 
 
 
@@ -30,12 +30,10 @@ export class RegisterComponent {
   onSubmit(registerForm: NgForm) {
     this.submitted = true;
 
-    // Verificar si las contraseñas coinciden antes de enviar el formulario
     if (!this.passwordsMatch || registerForm.invalid) {
       return;
     }
 
-    // Llamar al servicio para registrar el usuario
     this.UsuarioService.registrarUsuario(this.usuario).subscribe({
       next: (response) => {
         console.log('Usuario registrado con éxito:', response);

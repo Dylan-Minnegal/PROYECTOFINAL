@@ -6,7 +6,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./filters.component.sass']
 })
 export class FiltersComponent {
-  categorias: string[] = ['Camisetas', 'Raquetas', 'Bolas', 'Pantalones', 'Faldas'];
+  categorias: string[] = ['Camisetas', 'Pantalones', 'Faldas', 'Chaquetas', 'Sudaderas'];
   sexos: string[] = ['Hombre', 'Mujer', 'Unisex'];
   tallas: string[] = ['S', 'M', 'L', 'XL', 'XXL'];
   

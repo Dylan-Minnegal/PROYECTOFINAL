@@ -3,10 +3,10 @@
         Producto no encontrado.
     </div>
     <div *ngIf="producto" class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 col-sm-12">
           <img [src]="producto.imagen" class="product-image" alt="{{ producto.nombre }}">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 col-sm-12">
           <h2>{{ producto.nombre }}</h2>
           <p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
           <p><strong>Precio:</strong> {{ producto.precio | currency:'EUR':'symbol':'1.2-2' }}</p>
