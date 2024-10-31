@@ -55,6 +55,7 @@ export class CartService {
 
   limpiarCarrito(): void {
     this.articulosCarrito.next([]);
+    localStorage.removeItem('carritoArticulos');
     this.actualizarConteoProductosUnicos();
   }
   private guardarCarritoEnLocalStorage(): void {

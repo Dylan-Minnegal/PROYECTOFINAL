@@ -8,7 +8,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class FiltersComponent {
   categorias: string[] = ['Camisetas', 'Pantalones', 'Faldas', 'Chaquetas', 'Sudaderas'];
   sexos: string[] = ['Hombre', 'Mujer', 'Unisex'];
-  tallas: string[] = ['S', 'M', 'L', 'XL', 'XXL'];
+  tallas: string[] = ['S', 'M', 'L', 'XL'];
   
   sexosSeleccionados: string[] = [];
   categoriasSeleccionadas: string[] = [];

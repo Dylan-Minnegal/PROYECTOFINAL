@@ -20,7 +20,6 @@ export class PanelAdminComponent implements OnInit {
     { id: 3, talla: 'L' },
     { id: 4, talla: 'XL' },
   ];
-
   categorias: string[] = ['Camisetas', 'Pantalones', 'Faldas', 'Chaquetas', 'Sudaderas'];
   sexos: string[] = ['Hombre', 'Mujer', 'Unisex'];
   nuevaTalla: string = '';
