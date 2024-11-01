@@ -22,10 +22,9 @@
 
         <ng-container *ngIf="usuario">
           <span class="navbar-text me-3">Bienvenido, {{ usuario.nombre }}</span>
+          <button class="btn btn-perfil m-1" routerLink="/perfil">Ver Perfil</button>
           <button class="btn btn-outline-danger m-1" (click)="logout()">Cerrar sesión</button>
-
           <a class="btn btn-outline-primary m-1" *ngIf="rolUsuario" routerLink="/admin">Panel Admin</a>
-
         </ng-container>
       </div>
       <div class="d-flex">

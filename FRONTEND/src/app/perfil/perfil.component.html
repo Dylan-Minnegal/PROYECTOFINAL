@@ -1,0 +1,38 @@
+<div class="card perfil-card" style="margin: auto;">
+    <div class="card-body">
+        <h5 class="card-title">Perfil del Usuario</h5>
+        <p><strong>Nombre:</strong> {{ perfil.nombre }}</p>
+        <p><strong>Apellidos:</strong> {{ perfil.apellidos }}</p>
+        <p><strong>Email:</strong> {{ perfil.email }}</p>
+        <p><strong>Dirección:</strong> {{ perfil.direccion }}</p>
+        <button class="btn btn-primary" (click)="activarEdicion()">
+            Modificar Perfil
+        </button>
+    </div>
+</div>
+
+<div *ngIf="enEdicion" class="form-container">
+    <form class="perfil-form" (ngSubmit)="actualizarPerfil()">
+        <h5 class="form-title">Editar Perfil</h5> 
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" [(ngModel)]="perfilEdicion.nombre" name="nombre">
+        </div>
+        <div class="form-group">
+            <label for="apellidos">Apellidos</label>
+            <input type="text" class="form-control" id="apellidos" [(ngModel)]="perfilEdicion.apellidos"
+                name="apellidos">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" [(ngModel)]="perfilEdicion.email" name="email">
+        </div>
+        <div class="form-group">
+            <label for="direccion">Dirección</label>
+            <input type="text" class="form-control" id="direccion" [(ngModel)]="perfilEdicion.direccion"
+                name="direccion">
+        </div>
+        <button type="submit" class="btn btn-success mt-3 m-2">Guardar Cambios</button>
+        <button type="button" class="btn btn-secondary mt-3 m-2" (click)="activarEdicion()">Cancelar</button>
+    </form>
+</div>

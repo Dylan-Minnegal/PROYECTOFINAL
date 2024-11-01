@@ -14,7 +14,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { CartComponent } from './cart/cart.component';
 import { PanelAdminComponent } from './panel-admin/panel-admin.component';
-import { ActualizarProductoComponent } from './actualizar-producto/actualizar-producto.component'; 
+import { ActualizarProductoComponent } from './actualizar-producto/actualizar-producto.component';
+import { PerfilComponent } from './perfil/perfil.component'; 
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { ActualizarProductoComponent } from './actualizar-producto/actualizar-pr
     RegisterComponent,
     CartComponent,
     PanelAdminComponent,
-    ActualizarProductoComponent
+    ActualizarProductoComponent,
+    PerfilComponent
   ],
   imports: [
     BrowserModule,

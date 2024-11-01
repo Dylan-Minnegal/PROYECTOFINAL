@@ -8,6 +8,8 @@ import { CartComponent } from './cart/cart.component';
 import { PanelAdminComponent } from './panel-admin/panel-admin.component'; 
 import { AdminGuard } from './admin.guard';
 import { ActualizarProductoComponent } from './actualizar-producto/actualizar-producto.component'; 
+import { PerfilComponent } from './perfil/perfil.component';
+
 
 const routes: Routes = [
   { path: '', component: ProductListComponent },
@@ -16,9 +18,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent } ,
   { path: 'cart', component: CartComponent } ,
   { path: 'admin', component: PanelAdminComponent, canActivate: [AdminGuard] }, 
-  { path: 'actualizar-producto/:id', component: ActualizarProductoComponent, canActivate: [AdminGuard] }, 
-
-
+  { path: 'actualizar-producto/:id', component: ActualizarProductoComponent, canActivate: [AdminGuard] },
+  { path: 'perfil', component: PerfilComponent }, 
 ];
 
 @NgModule({
