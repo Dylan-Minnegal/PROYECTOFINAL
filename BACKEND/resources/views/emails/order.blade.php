@@ -7,10 +7,10 @@ Gracias por tu compra. Aquí tienes los detalles de tu pedido:
 - **Producto:** {{ $item['nombre'] }}
 - **Talla:** {{ $item['talla'] }}
 - **Cantidad:** {{ $item['cantidad'] }}
-- **Precio:** ${{ $item['precio'] }}
+- **Precio:** €{{ $item['precio'] }}
 @endforeach
 
-**Total:** ${{ $orderDetails['total'] }}
+**Total:** €{{ $orderDetails['total'] }}
 
 Gracias,<br>
 {{ config('app.name') }}

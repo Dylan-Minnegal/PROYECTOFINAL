@@ -35,8 +35,10 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
     Route::delete('/valoraciones/{id}', [ValoracionController::class, 'destroy']);
     Route::put('/valoraciones/{id}', [ValoracionController::class, 'update']);
     
-    Route::put('/usuarios', [UsuarioController::class, 'update']);
 });
 
 
 Route::post('/pedidos', [OrderController::class, 'enviarEmail']);
+
+
+Route::put('/usuarios', [UsuarioController::class, 'update']); // Sin auth:api temporalmente
