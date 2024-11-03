@@ -3,8 +3,6 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioService } from '../usuarios-service.service'; 
 
-
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -19,22 +17,32 @@ export class RegisterComponent {
     password: '',
     password_confirmation: ''
   };
+  
   submitted = false;
+  contrasenasCoinciden: boolean = true; 
+  contrasenaValida: boolean = true; 
 
-  constructor(private UsuarioService: UsuarioService, private router: Router) {}
+  constructor(private usuarioService: UsuarioService, private router: Router) {}
 
-  get passwordsMatch(): boolean {
-    return this.usuario.password === this.usuario.password_confirmation;
+  verificarContrasenas(): void {
+    this.contrasenasCoinciden = this.usuario.password === this.usuario.password_confirmation;
+  }
+
+  verificarContrasenaValida(): void {
+    const password = this.usuario.password;
+    const hasUpperCase = /[A-Z]/.test(password); 
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password); 
+    this.contrasenaValida = password.length >= 8 && hasUpperCase && hasSpecialChar;
   }
 
   onSubmit(registerForm: NgForm) {
     this.submitted = true;
 
-    if (!this.passwordsMatch || registerForm.invalid) {
-      return;
+    if (!this.contrasenasCoinciden || !this.contrasenaValida || registerForm.invalid) {
+      return; 
     }
 
-    this.UsuarioService.registrarUsuario(this.usuario).subscribe({
+    this.usuarioService.registrarUsuario(this.usuario).subscribe({
       next: (response) => {
         console.log('Usuario registrado con éxito:', response);
         this.router.navigate(['/login']); 

@@ -15,12 +15,16 @@ export class CartComponent implements OnInit {
   pedidoExitoso: boolean = false; 
   pedidoItems: CartProduct[] = []; 
   pedidoTotal: number = 0; 
+  perfilUsuario: any = {}; 
+
 
 
 
   constructor(private cartService: CartService, private pedidosService: PedidosService) {}
 
   ngOnInit(): void {
+    this.perfilUsuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
+
     this.cartService.articulosActualesCarrito.subscribe(items => {
       this.cartItems = items;
       this.calculateTotalPrice();
@@ -52,7 +56,7 @@ export class CartComponent implements OnInit {
         precio: item.precio
       })),
       total: this.totalPrice,
-      customerEmail: 'dylaminnegal@gmail.com' 
+      customerEmail: this.perfilUsuario.email 
     };
 
     this.pedidosService.sendOrderDetails(orderDetails).subscribe(

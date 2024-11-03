@@ -1,65 +1,86 @@
 <div class="container mt-5 mb-5 d-flex justify-content-center align-items-center">
-    <div class="card p-4 shadow-sm" style="width: 70%">
-      <h2>Registro de Usuario</h2>
-      <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" novalidate>
-        <div class="mb-3">
-          <label for="nombre" class="form-label">Nombre</label>
-          <input type="text" id="nombre" class="form-control" [(ngModel)]="usuario.nombre" name="nombre" required minlength="2" #nombreCtrl="ngModel">
-          <div *ngIf="nombreCtrl.invalid && (nombreCtrl.dirty || nombreCtrl.touched || registerForm.submitted)" class="text-danger">
-            <small *ngIf="nombreCtrl.errors?.['required']">El nombre es obligatorio.</small>
-            <small *ngIf="nombreCtrl.errors?.['minlength']">El nombre debe tener al menos 2 caracteres.</small>
-          </div>
+  <div class="card p-4 shadow-sm" style="width: 70%">
+    <h2>Registro de Usuario</h2>
+    <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" novalidate>
+      <div class="mb-3">
+        <label for="nombre" class="form-label">Nombre</label>
+        <input type="text" id="nombre" class="form-control" [(ngModel)]="usuario.nombre" name="nombre" required
+          minlength="2" #nombreCtrl="ngModel">
+        <div *ngIf="nombreCtrl.invalid && (nombreCtrl.dirty || nombreCtrl.touched || registerForm.submitted)"
+          class="text-danger">
+          <small *ngIf="nombreCtrl.errors?.['required']">El nombre es obligatorio.</small>
+          <small *ngIf="nombreCtrl.errors?.['minlength']">El nombre debe tener al menos 2 caracteres.</small>
         </div>
-  
-        <div class="mb-3">
-          <label for="apellidos" class="form-label">Apellidos</label>
-          <input type="text" id="apellidos" class="form-control" [(ngModel)]="usuario.apellidos" name="apellidos" required minlength="2" #apellidosCtrl="ngModel">
-          <div *ngIf="apellidosCtrl.invalid && (apellidosCtrl.dirty || apellidosCtrl.touched || registerForm.submitted)" class="text-danger">
-            <small *ngIf="apellidosCtrl.errors?.['required']">Los apellidos son obligatorios.</small>
-            <small *ngIf="apellidosCtrl.errors?.['minlength']">Los apellidos deben tener al menos 2 caracteres.</small>
-          </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="apellidos" class="form-label">Apellidos</label>
+        <input type="text" id="apellidos" class="form-control" [(ngModel)]="usuario.apellidos" name="apellidos" required
+          minlength="2" #apellidosCtrl="ngModel">
+        <div *ngIf="apellidosCtrl.invalid && (apellidosCtrl.dirty || apellidosCtrl.touched || registerForm.submitted)"
+          class="text-danger">
+          <small *ngIf="apellidosCtrl.errors?.['required']">Los apellidos son obligatorios.</small>
+          <small *ngIf="apellidosCtrl.errors?.['minlength']">Los apellidos deben tener al menos 2 caracteres.</small>
         </div>
-  
-        <div class="mb-3">
-          <label for="direccion" class="form-label">Dirección</label>
-          <input type="text" id="direccion" class="form-control" [(ngModel)]="usuario.direccion" name="direccion" required minlength="5" #direccionCtrl="ngModel">
-          <div *ngIf="direccionCtrl.invalid && (direccionCtrl.dirty || direccionCtrl.touched || registerForm.submitted)" class="text-danger">
-            <small *ngIf="direccionCtrl.errors?.['required']">La dirección es obligatoria.</small>
-            <small *ngIf="direccionCtrl.errors?.['minlength']">La dirección debe tener al menos 5 caracteres.</small>
-          </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="direccion" class="form-label">Dirección</label>
+        <input type="text" id="direccion" class="form-control" [(ngModel)]="usuario.direccion" name="direccion" required
+          minlength="5" #direccionCtrl="ngModel">
+        <div *ngIf="direccionCtrl.invalid && (direccionCtrl.dirty || direccionCtrl.touched || registerForm.submitted)"
+          class="text-danger">
+          <small *ngIf="direccionCtrl.errors?.['required']">La dirección es obligatoria.</small>
+          <small *ngIf="direccionCtrl.errors?.['minlength']">La dirección debe tener al menos 5 caracteres.</small>
         </div>
-  
-        <div class="mb-3">
-          <label for="email" class="form-label">Correo Electrónico</label>
-          <input type="email" id="email" class="form-control" [(ngModel)]="usuario.email" name="email" required email #emailCtrl="ngModel">
-          <div *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched || registerForm.submitted)" class="text-danger">
-            <small *ngIf="emailCtrl.errors?.['required']">El correo es obligatorio.</small>
-            <small *ngIf="emailCtrl.errors?.['email']">El formato del correo es incorrecto.</small>
-          </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">Correo Electrónico</label>
+        <input type="email" id="email" class="form-control" [(ngModel)]="usuario.email" name="email" required email
+          #emailCtrl="ngModel">
+        <div *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched || registerForm.submitted)"
+          class="text-danger">
+          <small *ngIf="emailCtrl.errors?.['required']">El correo es obligatorio.</small>
+          <small *ngIf="emailCtrl.errors?.['email']">El formato del correo es incorrecto.</small>
         </div>
-  
-        <div class="mb-3">
-          <label for="password" class="form-label">Contraseña</label>
-          <input type="password" id="password" class="form-control" [(ngModel)]="usuario.password" name="password" required minlength="6" #passwordCtrl="ngModel">
-          <div *ngIf="passwordCtrl.invalid && (passwordCtrl.dirty || passwordCtrl.touched || registerForm.submitted)" class="text-danger">
-            <small *ngIf="passwordCtrl.errors?.['required']">La contraseña es obligatoria.</small>
-            <small *ngIf="passwordCtrl.errors?.['minlength']">La contraseña debe tener al menos 6 caracteres.</small>
-          </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Contraseña</label>
+        <input type="password" id="password" class="form-control" [(ngModel)]="usuario.password" name="password"
+          required minlength="8" (ngModelChange)="verificarContrasenaValida()" #passwordCtrl="ngModel">
+
+        <div *ngIf="passwordCtrl.invalid && (passwordCtrl.dirty || passwordCtrl.touched || submitted)"
+          class="text-danger">
+          <small *ngIf="passwordCtrl.errors?.['required']">La contraseña es obligatoria.</small>
+          <small *ngIf="passwordCtrl.errors?.['minlength']">La contraseña debe tener al menos 8 caracteres.</small>
         </div>
-  
-        <div class="mb-3">
-          <label for="password_confirmation" class="form-label">Confirmar Contraseña</label>
-          <input type="password" id="password_confirmation" class="form-control" [(ngModel)]="usuario.password_confirmation" name="password_confirmation" required #passwordConfirmationCtrl="ngModel">
-          <div *ngIf="passwordConfirmationCtrl.invalid && (passwordConfirmationCtrl.dirty || passwordConfirmationCtrl.touched || registerForm.submitted)" class="text-danger">
-            <small *ngIf="passwordConfirmationCtrl.errors?.['required']">Confirmar contraseña es obligatorio.</small>
-            <small *ngIf="!passwordsMatch">Las contraseñas no coinciden.</small>
-          </div>
+        <small *ngIf="!contrasenaValida && (passwordCtrl.dirty || passwordCtrl.touched)" class="text-danger">
+          La contraseña debe contener al menos una letra mayúscula y un carácter especial.
+        </small>
+      </div>
+
+
+      <div class="mb-3">
+        <label for="password_confirmation" class="form-label">Confirmar Contraseña</label>
+        <input type="password" id="password_confirmation" class="form-control"
+          [(ngModel)]="usuario.password_confirmation" name="password_confirmation" required
+          (ngModelChange)="verificarContrasenas()" #passwordConfirmationCtrl="ngModel">
+
+        <div
+          *ngIf="(passwordConfirmationCtrl.dirty || passwordConfirmationCtrl.touched || submitted) && !contrasenasCoinciden"
+          class="text-danger">
+          <small *ngIf="passwordConfirmationCtrl.errors?.['required']">Confirmar contraseña es obligatorio.</small>
         </div>
-  
-        <div class="d-flex justify-content-center">
-          <button type="submit" class="btn btn-register w-50" [disabled]="registerForm.invalid">Registrarse</button>
-        </div>
-      </form>
-    </div>
+        <small *ngIf="!contrasenasCoinciden" class="text-danger">Las contraseñas no coinciden.</small>
+      </div>
+
+
+
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-register w-50" [disabled]="registerForm.invalid">Registrarse</button>
+      </div>
+    </form>
   </div>
-  
+</div>
