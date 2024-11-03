@@ -41,4 +41,6 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
 Route::post('/pedidos', [OrderController::class, 'enviarEmail']);
 
 
-Route::put('/usuarios', [UsuarioController::class, 'update']); // Sin auth:api temporalmente
+Route::middleware('auth:api')->group(function () {
+    Route::put('/usuarios', [UsuarioController::class, 'update']);
+});
