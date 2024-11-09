@@ -20,6 +20,8 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerProductos();
+    console.log(this.filteredProducts);
+    
   }
 
   obtenerProductos(): void {

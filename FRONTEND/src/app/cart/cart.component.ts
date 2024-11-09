@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CartService } from '../cart.service';
 import { CartProduct } from '../models/product';
-import { PedidosService } from '../pedidos.service'; 
+import { PedidosService } from '../pedidos.service';
 
 
 @Component({
@@ -10,17 +10,17 @@ import { PedidosService } from '../pedidos.service';
   styleUrls: ['./cart.component.sass']
 })
 export class CartComponent implements OnInit {
-  cartItems: CartProduct[] = []; 
-  totalPrice: number = 0; 
-  pedidoExitoso: boolean = false; 
-  pedidoItems: CartProduct[] = []; 
-  pedidoTotal: number = 0; 
-  perfilUsuario: any = {}; 
+  cartItems: CartProduct[] = [];
+  totalPrice: number = 0;
+  pedidoExitoso: boolean = false;
+  pedidoItems: CartProduct[] = [];
+  pedidoTotal: number = 0;
+  perfilUsuario: any = {};
 
 
 
 
-  constructor(private cartService: CartService, private pedidosService: PedidosService) {}
+  constructor(private cartService: CartService, private pedidosService: PedidosService) { }
 
   ngOnInit(): void {
     this.perfilUsuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
@@ -35,6 +35,27 @@ export class CartComponent implements OnInit {
     this.totalPrice = this.cartItems.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
   }
 
+  increaseQuantity(item: CartProduct): void {
+    if (item.cantidad < item.stock) {
+      item.cantidad++;
+      this.cartService.updateCartItem(item);
+      this.calculateTotalPrice();
+    }
+  }
+
+  decreaseQuantity(item: CartProduct): void {
+    if (item.cantidad > 1) {
+      item.cantidad--;
+      this.cartService.updateCartItem(item);
+      this.calculateTotalPrice();
+    }
+  }
+
+
+  updateCartItem(item: CartProduct): void {
+    this.cartService.añadirProductoAlCarrito(item);
+    this.calculateTotalPrice();
+  }
   removeProduct(productId: number): void {
     this.cartService.eliminarProductoDelCarrito(productId);
   }
@@ -43,8 +64,8 @@ export class CartComponent implements OnInit {
     this.cartService.limpiarCarrito();
   }
   getTallaId(talla: string): number {
-    const tallasMap: { [key: string]: number } = { 'S': 1, 'M': 2, 'L': 3, 'XL': 4};
-    return tallasMap[talla] || 0; 
+    const tallasMap: { [key: string]: number } = { 'S': 1, 'M': 2, 'L': 3, 'XL': 4 };
+    return tallasMap[talla] || 0;
   }
   placeOrder(): void {
     const orderDetails = {
@@ -52,20 +73,21 @@ export class CartComponent implements OnInit {
         id: item.id,
         nombre: item.nombre,
         talla_id: this.getTallaId(item.talla),
+        imagen: item.imagen,
         cantidad: item.cantidad,
         precio: item.precio
       })),
       total: this.totalPrice,
-      customerEmail: this.perfilUsuario.email 
+      customerEmail: this.perfilUsuario.email
     };
 
     this.pedidosService.sendOrderDetails(orderDetails).subscribe(
       response => {
         console.log('Pedido enviado:', response);
         this.pedidoExitoso = true;
-        this.pedidoItems = [...this.cartItems]; 
-        this.pedidoTotal = this.totalPrice; 
-        this.clearCart(); 
+        this.pedidoItems = [...this.cartItems];
+        this.pedidoTotal = this.totalPrice;
+        this.clearCart();
       },
       error => {
         console.error('Error al enviar el pedido:', error);

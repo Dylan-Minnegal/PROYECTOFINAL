@@ -46,4 +46,5 @@ export interface CartProduct {
     precio: number;
     cantidad: number;
     talla: string;
+    stock: number
 }

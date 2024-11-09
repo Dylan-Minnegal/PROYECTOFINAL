@@ -15,12 +15,18 @@
           <div *ngIf="producto.tallas.length > 0" class="mt-3">
             <label for="tallaSelect"><strong>Tallas disponibles:</strong></label>
             <select id="tallaSelect" [(ngModel)]="selectedTalla" (change)="onTallaChange()" class="form-control w-50">
-              <option *ngFor="let talla of producto.tallas" [value]="talla.talla">
-                {{ talla.talla }} - Disponible: {{ talla.pivot.cantidad }}
+              <option *ngFor="let talla of producto.tallas" [value]="talla.talla" class="option" [ngClass]="{'option-valida': talla.pivot.cantidad===0}">
+                {{ talla.talla }} - Disponible: {{ talla.pivot.cantidad }} <div *ngIf="talla.pivot.cantidad===0">Out of Stock</div>
               </option>
             </select>
+            <div *ngIf="producto.tallas">
+              <div *ngIf="!producto.tallas" >
+                Out of Stock
+              </div>
+            </div>
+            
+
           </div>
-      
           <div *ngIf="selectedTalla" class="mt-3">
             <label for="cantidadInput"><strong>Cantidad:</strong></label>
             <input
@@ -32,6 +38,7 @@
               [attr.min]="1"
             />
           </div>
+          
       
           <button
             class="btn btn-primary p-1 mt-2"

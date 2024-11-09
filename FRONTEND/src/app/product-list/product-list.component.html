@@ -1,13 +1,13 @@
-<div class="container-fluid"> 
-  <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+<div class="container-fluid mb-1"> 
+  <div id="carousel" class="carousel slide" data-bs-ride="carousel" d>
     <div class="carousel-inner">
-      <div class="carousel-item active">
+      <div class="carousel-item active" data-bs-interval="5000">
         <img src="assets/images/anunciohead1.webp" class="d-block w-100" alt="Descripción de la imagen 1">
       </div>
-      <div class="carousel-item">
+      <div class="carousel-item" data-bs-interval="5000">
         <img src="assets/images/anunciohead1.webp" class="d-block w-100" alt="Descripción de la imagen 2">
       </div>
-      <div class="carousel-item">
+      <div class="carousel-item" data-bs-interval="5000">
         <img src="assets/images/anunciohead1.webp" class="d-block w-100" alt="Descripción de la imagen 3">
       </div>
     </div>
@@ -21,13 +21,14 @@
     </button>
   </div>
 </div>
-<div class="container-fluid mt-4">
+
+<div class="container-fluid mt-2 "> 
   <div class="row">
     <div class="col-md-3 col-sm-12 filtros-column">
       <app-filters (filterChange)="onFilterChange($event)" class="d-flex"></app-filters>
     </div>
     
-    <div class="col-md-9 col-sm-6">
+    <div class="col-md-9 col-sm-12">
       <input type="text" [(ngModel)]="searchText" placeholder="Buscar productos..." class="form-control mb-3">
       <h2 class="text-center">Lista de Productos</h2>
 

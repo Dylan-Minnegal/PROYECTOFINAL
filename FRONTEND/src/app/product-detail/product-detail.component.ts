@@ -70,20 +70,29 @@ export class ProductDetailComponent implements OnInit {
   }
   agregarAlCarrito(): void {
     if (this.producto && this.selectedTalla && this.cantidad > 0 && this.cantidad <= this.cantidadDisponible) {
+        const tallaSeleccionada = this.producto.tallas.find(
+        (talla: any) => talla.talla === this.selectedTalla
+      );
+
+      const stockDisponible = tallaSeleccionada ? tallaSeleccionada.pivot.cantidad : 0;
+
       const productoCarrito = {
         id: this.producto.id,
         imagen: this.producto.imagen,
         nombre: this.producto.nombre,
         precio: this.producto.precio,
         talla: this.selectedTalla,
-        cantidad: this.cantidad
+        cantidad: this.cantidad,
+        stock: stockDisponible 
       };
+
       this.cartService.añadirProductoAlCarrito(productoCarrito);
+      console.log(stockDisponible);
+
     } else {
       console.error('El producto o los parámetros del carrito no son válidos.');
     }
-  }
-  
+}
 
   cargarValoraciones(productId: number): void {
     this.valoracionesService.obtenerValoracionesPorProductoId(productId).subscribe(

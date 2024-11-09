@@ -4,11 +4,12 @@
     <div *ngIf="pedidoExitoso" class="alert alert-success mt-3">
         <h4 class="alert-heading">¡Pedido realizado con éxito!</h4>
         <p>El pedido ha sido procesado correctamente. Tienes toda la información en tu correo electrónico.</p>
-        
+
         <div class="mt-3">
             <h5>Detalles del pedido:</h5>
             <ul class="list-group">
-                <li *ngFor="let item of pedidoItems" class="list-group-item d-flex justify-content-between align-items-center">
+                <li *ngFor="let item of pedidoItems"
+                    class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
                         <strong>{{ item.nombre }}</strong> - Talla: {{ item.talla }}
                         <br>
@@ -36,7 +37,13 @@
                             style="width: 150px; height: auto;">
                         <div>
                             <h5>{{ item.nombre }}</h5>
-                            <p>Cantidad: {{ item.cantidad }}</p>
+                            <div class="d-flex align-items-center">
+                                <button class="btn btn-outline-secondary btn-sm" (click)="decreaseQuantity(item)"
+                                    [disabled]="item.cantidad <= 1">-</button>
+                                <span class="mx-2">{{ item.cantidad }}</span>
+                                <button class="btn btn-outline-secondary btn-sm" (click)="increaseQuantity(item)"
+                                    [disabled]="item.cantidad >= item.stock">+</button>
+                            </div>
                             <p>Talla: {{ item.talla }}</p>
                             <p>Precio unitario: {{ item.precio | currency:'EUR' }}</p>
                             <p>Subtotal: {{ item.precio * item.cantidad | currency:'EUR' }}</p>
@@ -52,4 +59,3 @@
                 <button class="btn btn-primary" (click)="placeOrder()">Comprar</button>
             </div>
         </div>
-    

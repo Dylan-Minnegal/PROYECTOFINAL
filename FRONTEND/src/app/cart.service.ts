@@ -14,7 +14,7 @@ export class CartService {
 
   constructor() {
     const articulosDesdeLocalStorage = this.cargarCarritoDesdeLocalStorage();
-    this.articulosCarrito.next(articulosDesdeLocalStorage); 
+    this.articulosCarrito.next(articulosDesdeLocalStorage);
     this.actualizarConteoProductosUnicos();
   }
 
@@ -26,13 +26,25 @@ export class CartService {
     if (indiceArticulo !== -1) {
       articulosActuales[indiceArticulo].cantidad += producto.cantidad;
     } else {
-      articulosActuales.push({ ...producto, cantidad: producto.cantidad });
+      articulosActuales.push({ ...producto, cantidad: producto.cantidad, stock: producto.stock });
     }
 
     this.articulosCarrito.next(articulosActuales);
     this.guardarCarritoEnLocalStorage();
-    this.actualizarConteoProductosUnicos(); 
+    this.actualizarConteoProductosUnicos();
   }
+  updateCartItem(updatedItem: CartProduct): void {
+    const articulosActuales = this.articulosCarrito.value.map(item => {
+      if (item.id === updatedItem.id && item.talla === updatedItem.talla) {
+        return { ...item, cantidad: updatedItem.cantidad };
+      }
+      return item; 
+    });
+
+    this.articulosCarrito.next(articulosActuales); 
+    this.guardarCarritoEnLocalStorage(); 
+  }
+
 
   private actualizarConteoProductosUnicos(): void {
     const conteoProductosUnicos = this.articulosCarrito.value.length;
@@ -49,7 +61,7 @@ export class CartService {
     articulosActuales = articulosActuales.filter(item => item.id !== productoId);
 
     this.articulosCarrito.next(articulosActuales);
-    this.guardarCarritoEnLocalStorage(); 
+    this.guardarCarritoEnLocalStorage();
     this.actualizarConteoProductosUnicos();
   }
 
