@@ -34,7 +34,6 @@ class OrderController extends Controller
                         ->where('talla_id', $item['talla_id'])
                         ->update(['cantidad' => $productoTalla->cantidad - $item['cantidad']]);
                     
-                    // Convertir talla_id a nombre de talla antes de enviar el correo
                     $item['talla'] = $this->getTallaNombre($item['talla_id']);
                 } else {
                     return response()->json(['error' => 'Stock insuficiente para ' . $item['nombre'] . ' en talla ' . $item['talla_id']], 400);

@@ -43,4 +43,5 @@ Route::post('/pedidos', [OrderController::class, 'enviarEmail']);
 
 Route::middleware('auth:api')->group(function () {
     Route::put('/usuarios', [UsuarioController::class, 'update']);
+    Route::post('/pedidos', [OrderController::class, 'enviarEmail']);
 });
