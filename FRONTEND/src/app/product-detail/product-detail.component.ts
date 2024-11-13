@@ -87,8 +87,6 @@ export class ProductDetailComponent implements OnInit {
       };
 
       this.cartService.añadirProductoAlCarrito(productoCarrito);
-      console.log(stockDisponible);
-
     } else {
       console.error('El producto o los parámetros del carrito no son válidos.');
     }

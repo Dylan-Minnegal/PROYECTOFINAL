@@ -16,6 +16,8 @@ export class CartComponent implements OnInit {
   pedidoItems: CartProduct[] = [];
   pedidoTotal: number = 0;
   perfilUsuario: any = {};
+  authToken = sessionStorage.getItem('authToken');
+
 
 
 
@@ -83,7 +85,7 @@ export class CartComponent implements OnInit {
       customerEmail: this.perfilUsuario.email
     };
 
-    this.pedidosService.sendOrderDetails(orderDetails).subscribe(
+    this.pedidosService.sendOrderDetails(orderDetails, this.authToken).subscribe(
       response => {
         console.log('Pedido enviado:', response);
         this.pedidoExitoso = true;
