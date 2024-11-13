@@ -19,6 +19,7 @@ export class RegisterComponent {
   };
   
   submitted = false;
+  errorMessage = "";
   contrasenasCoinciden: boolean = true; 
   contrasenaValida: boolean = true; 
 
@@ -49,6 +50,7 @@ export class RegisterComponent {
       },
       error: (error) => {
         console.error('Error en el registro:', error);
+        this.errorMessage = error.error.message;
       }
     });
   }

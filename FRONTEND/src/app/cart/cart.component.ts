@@ -23,8 +23,10 @@ export class CartComponent implements OnInit {
   constructor(private cartService: CartService, private pedidosService: PedidosService) { }
 
   ngOnInit(): void {
-    this.perfilUsuario = JSON.parse(sessionStorage.getItem('usuario') || '{}');
-
+    const usuario = sessionStorage.getItem('usuario');
+    this.perfilUsuario = usuario ? JSON.parse(usuario) : null;
+    console.log(this.perfilUsuario);
+    
     this.cartService.articulosActualesCarrito.subscribe(items => {
       this.cartItems = items;
       this.calculateTotalPrice();

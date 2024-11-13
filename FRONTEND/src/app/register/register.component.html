@@ -81,6 +81,9 @@
       <div class="d-flex justify-content-center">
         <button type="submit" class="btn btn-register w-50" [disabled]="registerForm.invalid">Registrarse</button>
       </div>
+      <div *ngIf="errorMessage" class="alert alert-danger mt-2">
+        {{ errorMessage }}
+      </div>
     </form>
   </div>
 </div>

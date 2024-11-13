@@ -56,6 +56,7 @@
             <div class="mt-4">
                 <h4>Precio Total: {{ totalPrice | currency:'EUR' }}</h4>
                 <button class="btn btn-warning me-2" (click)="clearCart()">Vaciar Carrito</button>
-                <button class="btn btn-primary" (click)="placeOrder()">Comprar</button>
+                <button *ngIf="perfilUsuario" class="btn btn-primary" (click)="placeOrder()">Comprar</button>
+                <div *ngIf="!perfilUsuario" class="alert alert-danger mt-3">Tienes que iniciar sesion para poder comprar</div>
             </div>
         </div>
