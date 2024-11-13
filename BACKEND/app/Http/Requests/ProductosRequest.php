@@ -21,7 +21,7 @@ class ProductosRequest extends FormRequest
             'precio' => 'required|numeric|min:0',
             'tallas' => 'nullable|array',
             'tallas.*.id' => 'required|integer|exists:tallas,id',
-            'tallas.*.cantidad' => 'required|integer|min:1',
+            'tallas.*.cantidad' => 'required|integer',
         ];
     }
     public function messages()
