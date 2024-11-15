@@ -23,7 +23,7 @@ export class LoginComponent {
         this.AuthService.guardarSessionStorage(response.token, response.usuario);
   
         if (response.usuario.rol === 'admin') {
-          this.router.navigate(['/admin']).then(() => {
+          this.router.navigate(['/']).then(() => {
             window.location.reload();
           });
         } else {

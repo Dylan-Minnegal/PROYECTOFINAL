@@ -1,4 +1,4 @@
-<div class="card perfil-card mt-5" style="margin: auto;">
+<div class="card perfil-card " style="margin: auto;  margin-top: 125px">
     <div class="card-body">
         <h5 class="card-title">Perfil del Usuario</h5>
         <p><strong>Nombre:</strong> {{ perfil.nombre }}</p>
@@ -10,29 +10,84 @@
         </button>
     </div>
 </div>
-
 <div *ngIf="enEdicion" class="form-container">
-    <form class="perfil-form" (ngSubmit)="actualizarPerfil()">
+    <form class="perfil-form" #perfilForm="ngForm" (ngSubmit)="actualizarPerfil()">
         <h5 class="form-title">Editar Perfil</h5> 
+        
         <div class="form-group">
             <label for="nombre">Nombre</label>
-            <input type="text" class="form-control" id="nombre" [(ngModel)]="perfilEdicion.nombre" name="nombre">
+            <input 
+                type="text" 
+                class="form-control" 
+                id="nombre" 
+                [(ngModel)]="perfilEdicion.nombre" 
+                name="nombre" 
+                required 
+                minlength="3"
+                #nombre="ngModel">
+            <div *ngIf="nombre.invalid && nombre.touched" class="text-danger">
+                <small *ngIf="nombre.errors?.['required']">El nombre es obligatorio.</small>
+                <small *ngIf="nombre.errors?.['minlength']">El nombre debe tener al menos 3 caracteres.</small>
+            </div>
         </div>
+
         <div class="form-group">
             <label for="apellidos">Apellidos</label>
-            <input type="text" class="form-control" id="apellidos" [(ngModel)]="perfilEdicion.apellidos"
-                name="apellidos">
+            <input 
+                type="text" 
+                class="form-control" 
+                id="apellidos" 
+                [(ngModel)]="perfilEdicion.apellidos" 
+                name="apellidos" 
+                required
+                minlength="3"
+                #apellidos="ngModel">
+            <div *ngIf="apellidos.invalid && apellidos.touched" class="text-danger">
+                <small *ngIf="apellidos.errors?.['required']">Los apellidos son obligatorios.</small>
+                <small *ngIf="apellidos.errors?.['minlength']">Los apellidos deben tener al menos 3 caracteres.</small>
+            </div>
         </div>
+
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" [(ngModel)]="perfilEdicion.email" name="email">
+            <input 
+                type="email" 
+                class="form-control" 
+                id="email" 
+                [(ngModel)]="perfilEdicion.email" 
+                name="email" 
+                required
+                email
+                #email="ngModel">
+            <div *ngIf="email.invalid && email.touched" class="text-danger">
+                <small *ngIf="email.errors?.['required']">El email es obligatorio.</small>
+                <small *ngIf="email.errors?.['email']">El formato del email no es válido.</small>
+            </div>
         </div>
+
         <div class="form-group">
             <label for="direccion">Dirección</label>
-            <input type="text" class="form-control" id="direccion" [(ngModel)]="perfilEdicion.direccion"
-                name="direccion">
+            <input 
+                type="text" 
+                class="form-control" 
+                id="direccion" 
+                [(ngModel)]="perfilEdicion.direccion" 
+                name="direccion" 
+                required
+                minlength="5"
+                #direccion="ngModel">
+            <div *ngIf="direccion.invalid && direccion.touched" class="text-danger">
+                <small *ngIf="direccion.errors?.['required']">La dirección es obligatoria.</small>
+                <small *ngIf="direccion.errors?.['minlength']">La dirección debe tener al menos 5 caracteres.</small>
+            </div>
         </div>
-        <button type="submit" class="btn btn-success mt-3 m-2">Guardar Cambios</button>
+
+        <button 
+            type="submit" 
+            class="btn btn-success mt-3 m-2" 
+            [disabled]="perfilForm.invalid">
+            Guardar Cambios
+        </button>
         <button type="button" class="btn btn-secondary mt-3 m-2" (click)="activarEdicion()">Cancelar</button>
     </form>
 </div>

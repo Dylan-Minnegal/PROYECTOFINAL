@@ -49,7 +49,6 @@ export class RegisterComponent {
         this.router.navigate(['/login']); 
       },
       error: (error) => {
-        console.error('Error en el registro:', error);
         this.errorMessage = error.error.message;
       }
     });
