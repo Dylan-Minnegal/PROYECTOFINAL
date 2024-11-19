@@ -20,7 +20,6 @@ export class ProductListComponent implements OnInit {
 
   ngOnInit(): void {
     this.obtenerProductos();
-    console.log(this.filteredProducts);
     
   }
 
@@ -45,14 +44,6 @@ export class ProductListComponent implements OnInit {
     this.tallasSeleccionadas = filters.tallas; 
     this.minPrice = filters.minPrice; 
     this.maxPrice = filters.maxPrice;
-
-    console.log('Filtros aplicados:', {
-      categorias: this.categoriasSeleccionadas,
-      sexos: this.sexosSeleccionados,
-      tallas: this.tallasSeleccionadas,
-      minPrice: this.minPrice,
-      maxPrice: this.maxPrice,
-    });
   }
 
   get filteredProducts() {

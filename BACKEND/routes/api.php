@@ -38,7 +38,6 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
 });
 
 
-Route::post('/pedidos', [OrderController::class, 'enviarEmail']);
 
 
 Route::middleware('auth:api')->group(function () {
