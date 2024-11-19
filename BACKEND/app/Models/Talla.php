@@ -11,7 +11,6 @@ class Talla extends Model
 
     protected $fillable = ['talla'];
 
-    // Relación con Producto
     public function productos()
     {
         return $this->belongsToMany(Producto::class, 'producto_tallas')

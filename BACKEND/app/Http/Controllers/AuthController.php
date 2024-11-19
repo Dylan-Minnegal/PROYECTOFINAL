@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Usuario;
 use Illuminate\Http\Request;
 use App\Http\Requests\UsuarioRequest;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {

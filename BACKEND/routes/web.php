@@ -5,6 +5,5 @@ use App\Http\Controllers\ProductoController;
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return Route::get('/productos', [ProductoController::class, 'index']);
 });
-Route::get('/productos', [ProductoController::class, 'index']);

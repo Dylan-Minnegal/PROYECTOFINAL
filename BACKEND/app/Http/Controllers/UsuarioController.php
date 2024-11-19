@@ -7,7 +7,6 @@ use App\Http\Requests\UsuarioRequest;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
 class UsuarioController extends Controller
 {
