@@ -6,6 +6,8 @@ import { ValoracionesService } from '../valoraciones.service';
 import { UsuarioService } from '../usuarios-service.service'; 
 import { AuthService } from '../auth.service';
 import { CartService } from '../cart.service';
+import Swal from 'sweetalert2';
+
 
 
 @Component({
@@ -149,16 +151,35 @@ export class ProductDetailComponent implements OnInit {
 
     this.valoracionesService.enviarValoracion(reviewData);
     calificacionForm.resetForm();
+    Swal.fire({
+      icon: 'success',
+      title: '¡Valoración enviada!',
+      text: 'Tu valoración se ha realizado con éxito.',
+      timer: 2000,
+      showConfirmButton: false,
+    });
+    setTimeout(() => {
+      window.location.reload();
+    }, 2000);
   }
   eliminarValoracion(id: number) {
     const token = this.authToken ?? '';
     this.valoracionesService.eliminarValoracion(id, token).subscribe({
       next: (response) => {
-        alert('Valoración eliminada con éxito.');
         console.log(response);
+        Swal.fire({
+          icon: 'success',
+          title: '¡Valoración eliminada!',
+          text: 'La valoración se ha eliminado con éxito.',
+          timer: 2000,
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       },
       error: (error) => {
-        alert('Hubo un error al intentar eliminar la valoración.');
+        console.log('Hubo un error al intentar eliminar la valoración.');
         console.error(error);
       },
     });

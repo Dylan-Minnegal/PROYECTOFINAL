@@ -18,7 +18,7 @@ export class ValoracionesService {
     return this.http.get<Valoracion[]>(url);
   }
 
-  enviarValoracion(review: Valoracion): void {
+  enviarValoracion(review: ValoracionCrear): void {
     const authToken = sessionStorage.getItem('authToken');
     const headers = new HttpHeaders({ 'Content-Type': 'application/json',
       'Authorization': `Bearer ${authToken}`

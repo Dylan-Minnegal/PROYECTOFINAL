@@ -62,7 +62,7 @@
           Valorado por: {{ valoracion.nombreUsuario }} {{ valoracion.apellidosUsuario }}
         </p>
         <div class="d-flex justify-content-end">
-          <button class="btn btn-danger m-1 btn-delete" *ngIf="rolUsuario" (click)="eliminarValoracion(valoracion.id)">Eliminar</button>
+          <button class="btn m-1 btn-delete" *ngIf="rolUsuario" (click)="eliminarValoracion(valoracion.id)">Eliminar</button>
         </div>
       </div>
     </div>
