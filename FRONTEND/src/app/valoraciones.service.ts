@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Valoracion } from './models/product';
+import { Valoracion, ValoracionCrear } from './models/product';
 import { environment } from '../enviroment/enviroment';
 
 
@@ -18,7 +18,7 @@ export class ValoracionesService {
     return this.http.get<Valoracion[]>(url);
   }
 
-  enviarValoracion(review: Valoracion): void {
+  enviarValoracion(review: ValoracionCrear): void {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     this.http.post(this.apiUrl, review, { headers }).subscribe(
@@ -30,5 +30,12 @@ export class ValoracionesService {
         console.log(review)
       }
     );
+  }
+  eliminarValoracion(id: number, token: string): Observable<any> {
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`, 
+    });
+
+    return this.http.delete(`${this.apiUrl}/${id}`, { headers });
   }
 }

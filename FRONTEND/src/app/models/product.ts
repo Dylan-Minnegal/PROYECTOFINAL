@@ -28,16 +28,23 @@ export interface NuevoProducto {
     imagen: string;
     sexo: string;
     categoria: string;
-    tallas: { id: number; cantidad: number; }[]; 
+    tallas: { id: number; cantidad: number; }[];
 }
 
 export interface Valoracion {
+    id: number;
     calificacion: number;
     comentario: string;
     product_id: number;
-    id_usuario: number; 
-    nombreUsuario?: string; 
-    apellidosUsuario?: string; 
+    id_usuario: number;
+    nombreUsuario?: string;
+    apellidosUsuario?: string;
+}
+export interface ValoracionCrear {
+    product_id: number;
+    id_usuario: number;
+    calificacion: number;
+    comentario: string;
 }
 export interface CartProduct {
     id: number;

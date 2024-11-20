@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../products.service';
-import { Producto, Valoracion } from '../models/product';
+import { Producto, Valoracion, ValoracionCrear } from '../models/product';
 import { ValoracionesService } from '../valoraciones.service';
 import { UsuarioService } from '../usuarios-service.service'; 
 import { AuthService } from '../auth.service';
@@ -25,6 +25,8 @@ export class ProductDetailComponent implements OnInit {
     calificacion: 5,
     comentario: '',    
   };
+  usuario: any = null;
+  rolUsuario: boolean = false; 
 
 
   constructor(
@@ -55,6 +57,12 @@ export class ProductDetailComponent implements OnInit {
       }
     );
     this.authToken = sessionStorage.getItem('authToken');
+    const usuarioString = sessionStorage.getItem('usuario');
+
+    if (usuarioString) {
+      this.usuario = JSON.parse(usuarioString); 
+      this.rolUsuario = this.usuario.rol === 'admin'; 
+    }
   }
 
   onTallaChange(): void {
@@ -132,14 +140,27 @@ export class ProductDetailComponent implements OnInit {
       return;
     }
 
-    const reviewData = {
+    const reviewData: ValoracionCrear = {
       product_id: this.producto.id,
-      id_usuario: usuario.id ,
+      id_usuario: usuario.id,
       calificacion: this.valoracion.calificacion,
-      comentario: this.valoracion.comentario
+      comentario: this.valoracion.comentario,
     };
 
     this.valoracionesService.enviarValoracion(reviewData);
     calificacionForm.resetForm();
+  }
+  eliminarValoracion(id: number) {
+    const token = this.authToken ?? '';
+    this.valoracionesService.eliminarValoracion(id, token).subscribe({
+      next: (response) => {
+        alert('Valoración eliminada con éxito.');
+        console.log(response);
+      },
+      error: (error) => {
+        alert('Hubo un error al intentar eliminar la valoración.');
+        console.error(error);
+      },
+    });
   }
 }

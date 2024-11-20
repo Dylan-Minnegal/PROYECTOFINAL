@@ -139,6 +139,4 @@ export class ActualizarProductoComponent implements OnInit {
       console.error('Error al actualizar el producto:', error);
     });
   }
-
-
 }
