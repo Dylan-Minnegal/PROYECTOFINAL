@@ -122,7 +122,6 @@ export class ActualizarProductoComponent implements OnInit {
       tallas: this.producto.tallas.map(talla => ({
         id: talla.id,
         talla: talla.talla,
-        cantidad: talla.pivot.cantidad,
         pivot: {
           producto_id: this.producto.id,
           talla_id: talla.id,
