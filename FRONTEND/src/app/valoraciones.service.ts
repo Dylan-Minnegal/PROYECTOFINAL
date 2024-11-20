@@ -19,7 +19,11 @@ export class ValoracionesService {
   }
 
   enviarValoracion(review: Valoracion): void {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    const authToken = sessionStorage.getItem('authToken');
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json',
+      'Authorization': `Bearer ${authToken}`
+    }, 
+    );
 
     this.http.post(this.apiUrl, review, { headers }).subscribe(
       (response) => {

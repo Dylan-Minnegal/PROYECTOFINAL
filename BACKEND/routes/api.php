@@ -16,7 +16,6 @@ Route::get('/productos/{id}', [ProductoController::class, 'show']);
 
 Route::get('/valoraciones', [ValoracionController::class, 'index']);
 Route::get('/valoraciones/{id}', [ValoracionController::class, 'show']);
-Route::post('/valoraciones', [ValoracionController::class, 'store']);
 
 
 Route::get('/usuarios/{id}', [UsuarioController::class, 'show']);
@@ -43,4 +42,5 @@ Route::middleware(['auth:api', 'admin'])->group(function () {
 Route::middleware('auth:api')->group(function () {
     Route::put('/usuarios', [UsuarioController::class, 'update']);
     Route::post('/pedidos', [OrderController::class, 'enviarEmail']);
+    Route::post('/valoraciones', [ValoracionController::class, 'store']);
 });
