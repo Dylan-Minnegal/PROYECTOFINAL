@@ -2,10 +2,8 @@
   RewriteEngine On
   RewriteBase /
 
-  # Si el archivo o directorio existe, permite el acceso directamente
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
 
-  # Si no existe, redirige todas las solicitudes al index.html
   RewriteRule ^.*$ index.html [L]
 </IfModule>
